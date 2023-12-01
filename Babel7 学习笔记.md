@@ -307,7 +307,7 @@ const b = () => {};
 const c = a ?? 0;
 const e = [1, 2, 3, 4].at(2);
 ```
-##### `async/await/generator`的特殊处理
+##### `ASYNC/AWAIT/GENERATOR` 的特殊处理
 按照我们之前对于新特性的分类，`async/await/generator`应该是属于新语法的一类。也就是说`@babel/preset-env`是能够将这些语法进行一个降级编译的。但如果你用的`@babel/plugin-transform-regenerator`（`@babel/preset-env`的一个依赖）版本是 v7.18.0 之前的，`@babel/preset-env`并不能完成这一任务。
 > 注：官方的 [v7.18.0 发布文档](https://babeljs.io/blog/2022/05/19/7.18.0)说明了这一个变化，但如果你装了 v7.18.0 之前的`@babel/preset-env`，并不一定能看到预期的效果，你会发现并不需要安装`regenerator-runtime`也是可以的。那不是官方说的有问题吗？也不是，其实是由于官方的说法比较笼统。准确的说法是这样的：v7.18.0 是指的`@babel/plugin-transform-regenerator`的版本，这个包就是专门用来处理`async/await/generator`的，它是`@babel/preset-env`的依赖之一。你可能装了 v7.16.8 的`@babel/preset-env`，但安装的`@babel/plugin-transform-regenerator`是 v7.18.0 之后的，就会出现上面的情况。
 
