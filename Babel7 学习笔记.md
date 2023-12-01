@@ -157,7 +157,7 @@ var f = [1, 2, 3, 4].includes(5);
 - 语法包括：`const/let`、`class`、模版字符串、可选链、`async/await`等。
 - API 则包括对象的实例/静态方法，比如`Array.from`、`Array.prototype.includes`，还有内置对象如`Promise`等。
 
-有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：**`@babel/preset-env`可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。**要编译新的 API，我们就需要另一位重量级选手 polyfill 了。**polyfill，可以翻译为“填充物、垫片”，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！
+有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：**`@babel/preset-env`可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。要编译新的 API，我们就需要另一位重量级选手 polyfill 了。polyfill，可以翻译为“填充物、垫片”，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！
 polyfill 并不是一个包的名字，而是一类方法的统称，你可以自己用 ES5 实现一个`Array.prototype.includes`，这个方法也是一个 polyfill。目前 JavaScript 最好用、也最流行的 polyfill 是 `core-js`。在 Babel v7.4.0 之前，Babel 实现 polyfill 的方式是通过`@babel/polyfill`这个包，但是在 v7.4.0 之后，这个包就被废弃了，Babel 更加推荐直接使用`core-js`+`regenerator-runtime`（实际上废弃的`@babel/polyfill`就是`core-js`和`regenerator-runtime`的一个整合）。
 > 注：v7.18.0 之后也不再需要`regenerator-runtime`，具体原因下面会讲到。
 
@@ -560,7 +560,7 @@ module.exports = {
 以上 5 个配置项，就是我们项目配置中最常用的配置项。`@babel/preset-env`还有其他的配置项，但一般来讲其他的配置我们采用默认的就可以满足情况。如果有特殊需求，参考[官方文档](https://babeljs.io/docs/babel-preset-env#options)即可。
 ## `@babel/plugin-transform-runtime`
 上面的介绍中，我们知道当`useBuiltIns`设置为`usage`时，Babel 只会引入我们需要的 polyfill，相比`entry`要轻量不少。那是不是我们在项目中一律使用`useBuiltIns: 'usage'`就万事大吉了呢？肯定不是的，不同的配置有优点也有缺点，还是要根据具体的业务场景来选择。这个我们先按下不表，接下来我们先来聊一下`@babel/perset-env`编译存在的问题。
-第一个问题是：**通过**`**@babel/preset-env**`**进行 polyfill 时会污染全局环境，无论你用的是**`**usage**`**还是**`**entry**`。以`Array.prototype.includes`为例，查看引入文件中的代码会发现，polyfill 就是在全局对象`Array`的原型上增加了对应的方法实现。
+第一个问题是：**通过`@babel/preset-env`进行 polyfill 时会污染全局环境，无论你用的是`usage`还是`entry`**。以`Array.prototype.includes`为例，查看引入文件中的代码会发现，polyfill 就是在全局对象`Array`的原型上增加了对应的方法实现。
 ```javascript
 // compiled.js
 "use strict";
@@ -578,7 +578,7 @@ $({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
 });
 ...
 ```
-第二个问题则是：**Babel 在编译有些语法时，需要用到一些辅助方法（如 Class 的编译时会用到**`**_defineProperties**`**、**`**_createClass**`**、**`**_toPrimitive**`**等），这些 helpers 在编译的时候，会被添加到每个需要它的文件中去，造成不必要的重复代码**。
+第二个问题则是：**Babel 在编译有些语法时，需要用到一些辅助方法（如 Class 的编译时会用到`_defineProperties`、`_createClass`、`_toPrimitive`等），这些 helpers 在编译的时候，会被添加到每个需要它的文件中去，造成不必要的重复代码**。
 > 可以亲自动手尝试一下：新建`sub1.js`和`sub2.js`并在其中各自声明一个类，之后在`origin.js`中引用这两个类。通过 webpack 将这三个文件打包输出到`compiled.js`后，就会看到有些函数有两次定义，这些重复定义的函数就是上面提到的那几个辅助函数。
 
 对于这两个问题，可以通过使用`@babel/plugin-transform-runtime`来解决。在 Babel 官网上对于`@babel/plugin-transform-runtime`的介绍只有一句话：一个可以重用 Babel 插入的 helpers 代码的插件，可以帮助节省项目体积。但实际上不止这一个功能，具体来说它主要提供了 3 个优化点：
@@ -587,7 +587,7 @@ $({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
 - 提供了一个不会污染全局的`core-js`，需要进行 polyfill 时不会直接在全局对象上增加对应方法。
 - 项目如果使用了`async/await/generator`，会自动帮我们引入`@babel/runtime/regeneraotr`，这一点和`@babel/preset-env`中的`useBuiltIns: 'usage'`的表现是一样的。
 
-我们需要明确一点：`**@babel/plugin-transform-runtime**`**本身并不包含任何的 helpers 和 polyfill，它必须配合**`**@babel/runtime**`**、**`**@babel/runtime-corejs2**`**、**`**@babel/runtime-corejs3**`**三个包中任意一个一起使用**，这三个包包含了我们需要的 helpers 和不会污染全局的`core-js`。
+我们需要明确一点：**`@babel/plugin-transform-runtime`本身并不包含任何的 helpers 和 polyfill，它必须配合`@babel/runtime`、`@babel/runtime-corejs2`、`@babel/runtime-corejs3`三个包中任意一个一起使用**，这三个包包含了我们需要的 helpers 和不会污染全局的`core-js`。
 ### 常用配置项
 接下来看一下`@babel/plugin-transform-runtime`的几个常用配置项。
 #### `helpers`
@@ -713,7 +713,7 @@ var Person = /*#__PURE__*/(0, _createClass2.default)(function Person(name, age) 
 | `2 &#124; { version: 2, proposals: true }` | `@babel/runtime-corejs2` |
 | `3 &#124; { version: 3, proposals: true }` | `@babel/runtime-corejs3` |
 
-简单来说就是：如果你需要插件帮你做 polyfill，则需要安装带有 polyfill 的 runtime 包（`@babel/runtime-corejs3`就是`@babel/runtime`+`core-js-pure`）。而且还有一点需要特别注意：`**@babel/plugin-transform-runtime**`**和**`**@babel/preset-env**`**都可以进行 polyfill，但两者并不是相互配合的，项目中只能采用其中一种 polyfill 方式**。如果你使用插件进行 polyfill，则不能开启预设的`useBuiltIns`配置；如果你使用预设进行 polyfill，则插件的`corejs`必须为`false`。
+简单来说就是：如果你需要插件帮你做 polyfill，则需要安装带有 polyfill 的 runtime 包（`@babel/runtime-corejs3`就是`@babel/runtime`+`core-js-pure`）。而且还有一点需要特别注意：**`@babel/plugin-transform-runtime`和`@babel/preset-env`都可以进行 polyfill，但两者并不是相互配合的，项目中只能采用其中一种 polyfill 方式**。如果你使用插件进行 polyfill，则不能开启预设的`useBuiltIns`配置；如果你使用预设进行 polyfill，则插件的`corejs`必须为`false`。
 > 注：这里所使用的 corejs 包和预设`preset-env`中的并不是一个东西。插件用的是`core-js-pure`，一个不会污染全局的包。而`preset-env`使用的是会污染全局变量的包，注意区分。
 
 接下来我们用练习项目来看一下`@babel/preset-env`和`@babel/plugin-transform-runtime`在进行 polyfill 时的表现有什么不同。
