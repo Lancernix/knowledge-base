@@ -43,8 +43,8 @@ Babel 的配置可以分为两种类型：
    - `package.json`文件中增加`babel`属性。
 > 注：`json`、`cjs`是 v7.7.0 之后才支持的，而`mjs`则是 v7.8.0 之后支持的。论适用性广，还是`js`扩展名更好一些。
 
-在日常的项目中，两者最重要的区别在于：**如果你需要 Babel 应用于**`**node_modules**`**，那么应该采用**`**babel.config.***`**，而不是**`**.babelrc.***`。Babel 官方建议项目中使用 JSON 配置文件，理由是：虽然 JS 配置文件在需要使用一些表达式或者构建时计算很方便，但 JS 配置的静态可分析性较差， 因此对可缓存性、代码检测、IDE 自动完成等有负面影响。 而 JSON 配置文件是静态 JSON 文件，它允许其他使用 Babel 的工具，如 Webpack 等打包工具安全地缓存 Babel 的结果， 这可能会带来巨大的构建性能优势。所以，如果你的项目中使用了新版本的 Babel，建议使用`babel.config.json`作为配置文件。如果是 monorepo 项目或者有特殊的需求，可以参考[官网示例](https://babeljs.io/docs/config-files)了解更加细致的配置。
-虽然 Babel 配置有多种写法，但是写起来都是差不多的。我们只需要重点关注其中两个参数即可：`**presets**`**数组、**`**plugins**`**数组**。
+在日常的项目中，两者最重要的区别在于：**如果你需要 Babel 应用于`node_modules`，那么应该采用`babel.config.*`，而不是`.babelrc.*`**。Babel 官方建议项目中使用 JSON 配置文件，理由是：虽然 JS 配置文件在需要使用一些表达式或者构建时计算很方便，但 JS 配置的静态可分析性较差， 因此对可缓存性、代码检测、IDE 自动完成等有负面影响。 而 JSON 配置文件是静态 JSON 文件，它允许其他使用 Babel 的工具，如 Webpack 等打包工具安全地缓存 Babel 的结果， 这可能会带来巨大的构建性能优势。所以，如果你的项目中使用了新版本的 Babel，建议使用`babel.config.json`作为配置文件。如果是 monorepo 项目或者有特殊的需求，可以参考[官网示例](https://babeljs.io/docs/config-files)了解更加细致的配置。
+虽然 Babel 配置有多种写法，但是写起来都是差不多的。我们只需要重点关注其中两个参数即可：**`presets`数组、`plugins`数组**。
 ```javascript
 // json写法
 {
@@ -157,7 +157,7 @@ var f = [1, 2, 3, 4].includes(5);
 - 语法包括：`const/let`、`class`、模版字符串、可选链、`async/await`等。
 - API 则包括对象的实例/静态方法，比如`Array.from`、`Array.prototype.includes`，还有内置对象如`Promise`等。
 
-有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：`**@babel/preset-env**`**可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。**要编译新的 API，我们就需要另一位重量级选手 polyfill 了。**polyfill，可以翻译为“填充物、垫片”，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！
+有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：**`@babel/preset-env`可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。**要编译新的 API，我们就需要另一位重量级选手 polyfill 了。**polyfill，可以翻译为“填充物、垫片”，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！
 polyfill 并不是一个包的名字，而是一类方法的统称，你可以自己用 ES5 实现一个`Array.prototype.includes`，这个方法也是一个 polyfill。目前 JavaScript 最好用、也最流行的 polyfill 是 `core-js`。在 Babel v7.4.0 之前，Babel 实现 polyfill 的方式是通过`@babel/polyfill`这个包，但是在 v7.4.0 之后，这个包就被废弃了，Babel 更加推荐直接使用`core-js`+`regenerator-runtime`（实际上废弃的`@babel/polyfill`就是`core-js`和`regenerator-runtime`的一个整合）。
 > 注：v7.18.0 之后也不再需要`regenerator-runtime`，具体原因下面会讲到。
 
