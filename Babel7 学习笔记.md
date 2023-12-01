@@ -357,7 +357,7 @@ const c = a ?? 0;
 const e = [1, 2, 3, 4].at(2);
 ```
 
-#### `ASYNC/AWAIT/GENERATOR` 的特殊处理
+#### `async/await/generator` 的特殊处理
 
 按照我们之前对于新特性的分类，`async/await/generator` 应该是属于新语法的一类。也就是说 `@babel/preset-env` 是能够将这些语法进行一个降级编译的。但如果你用的 `@babel/plugin-transform-regenerator`（`@babel/preset-env` 的一个依赖）版本是 v7.18.0 之前的，`@babel/preset-env` 并不能完成这一任务。
 
