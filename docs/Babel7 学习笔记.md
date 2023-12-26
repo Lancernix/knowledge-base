@@ -801,8 +801,8 @@ var Person = /*#__PURE__*/(0, _createClass2.default)(function Person(name, age) 
 | `corejs` 配置 | 需要安装的包 |
 | --- | --- |
 | `false` | `@babel/runtime` |
-| `2 | { version: 2, proposals: true }` | `@babel/runtime-corejs2` |
-| `3 | { version: 3, proposals: true }` | `@babel/runtime-corejs3` |
+| `2 \| { version: 2, proposals: true }` | `@babel/runtime-corejs2` |
+| `3 \| { version: 3, proposals: true }` | `@babel/runtime-corejs3` |
 
 简单来说就是：如果你需要插件帮你做 polyfill，则需要安装带有 polyfill 的 runtime 包（`@babel/runtime-corejs3` 就是 `@babel/runtime`+`core-js-pure`）。而且还有一点需要特别注意：**`@babel/plugin-transform-runtime` 和 `@babel/preset-env` 都可以进行 polyfill，但两者并不是相互配合的，项目中只能采用其中一种 polyfill 方式**。如果你使用插件进行 polyfill，则不能开启预设的 `useBuiltIns` 配置；如果你使用预设进行 polyfill，则插件的 `corejs` 必须为 `false`。
 
