@@ -5,5 +5,5 @@
 - [ ] 脚手架
 - [ ] 如何使用 dumi 开发组件库
 - [ ] Javscript 现代教程笔记
-- [ ] 完成 type challenge
+- [/] Type Challenge
 - [ ] 图床搭建
