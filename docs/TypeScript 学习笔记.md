@@ -62,6 +62,9 @@ type Arr3 = [...Arr1, boolean, number];
 # 类型递归
 
 利用 `extends … ? … : …` 的条件运算符来调用自身，就可以实现类似于递归函数效果的类型递归。例如：
-```
 
+```
+// Type Challenges 189题
+// 给定 Promise<ExampleType>，获取 ExampleType 类型
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U extends PromiseLike<any> ? MyAwaited<U> : U : never;
 ```
