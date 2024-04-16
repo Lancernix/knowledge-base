@@ -55,6 +55,6 @@ type Func = (...args: Params) => void;
 type Arr1 = string[];
 // Arr2 的类型为 string[]
 type Arr2 = [...Arr1];
-// Arr3 的类型为 [...string[], boolean, number]
+// Arr3 的类型为 [...string[], boolean, number]，一个不定长的元组
 type Arr3 = [...Arr1, boolean, number];
 ```
