@@ -43,5 +43,13 @@ const bool = true as const;
 
 扩展运算符常用于数组、元组、函数参数等场景的类型定义中，例如：
 ```typescript
+type Tuple1 = [1, true];
+// Tuple2 的类型为 [1, true, string]
+type Tuple2 = [...Tuple1, string];
+
+type Params = [number, string, boolean];
+// Func 的类型为 (args_0: number, args_1: string, args_2: boolean) => void
+type Func = (...args: Params) => void;
+
 
 ```
