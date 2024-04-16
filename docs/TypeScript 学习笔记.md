@@ -26,4 +26,5 @@ const num = 123 as const;
 const bool = true as const;
 ```
 
-# Test
+# 只读数组
+
