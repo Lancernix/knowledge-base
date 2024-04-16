@@ -27,4 +27,5 @@ const bool = true as const;
 ```
 
 # 只读数组
-
+定义方式：
+- **使用`readonly`修饰符，只能用在数组、元组的字面量类型上**。例如：`readonly string[]`
