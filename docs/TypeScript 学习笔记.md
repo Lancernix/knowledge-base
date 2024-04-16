@@ -37,4 +37,4 @@ const bool = true as const;
 
 # 扩展运算符 `…`
 
-
+在类型定义中，同样可以使用扩展运算符`...`,用法和JavaScript类似，但是有区别
