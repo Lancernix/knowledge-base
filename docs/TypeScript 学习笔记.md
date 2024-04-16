@@ -42,6 +42,7 @@ const bool = true as const;
 > 这里的对象类型在 Typescript 中并没有，不过我们日常使用最常用的就是使用 `interface`、`type` 给对象定义一个对应的类型，所以这里用这样的描述也比较好理解。
 
 扩展运算符常用于数组、元组、函数参数等场景的类型定义中，例如：
+
 ```typescript
 type Tuple1 = [1, true];
 // Tuple2 的类型为 [1, true, string]
@@ -51,5 +52,9 @@ type Params = [number, string, boolean];
 // Func 的类型为 (args_0: number, args_1: string, args_2: boolean) => void
 type Func = (...args: Params) => void;
 
-
+type Arr1 = string[];
+// Arr2 的类型为 string[]
+type Arr2 = [...Arr1];
+// Arr3 的类型为 [...string[], boolean, number]
+type Arr3 = [...Arr1, boolean, number];
 ```
