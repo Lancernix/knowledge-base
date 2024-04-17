@@ -128,3 +128,7 @@ type Result = ToArray<string | number>;
 ```
 
 # `Omit`
+
+https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as
+https://github.com/type-challenges/type-challenges/issues/9050
+https://github.com/microsoft/TypeScript/issues/39802
