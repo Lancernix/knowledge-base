@@ -104,19 +104,21 @@ type C = A extends B ? true : false;
 type ToArray<T> = T extends any ? T[] : never;
 // 这里的条件类型进行处理的时候，如果给定的 T 是一个联合类型，就会触发分布式规则。因为 T 这个类型是泛型 ToArray 的类型参数
 // 例如 type Result = ToArray<string | number>
-// 使用分布式规则分解一下
-type Result = ToArray<string | number>
-type ToArray<string> | type ToArray<number>
-
+type Result = ToArray<string | number>;
+// 使用分布式规则分解一下就是拆分成这样
+type Result = ToArray<string> | ToArray<number>;
+// 最终的结果就是 Result 的类型为 string[] | number[]
 ```
 
 常用的工具类型 `Exclude` 就是利用这个规则实现的：
 
 ```typescript
 type Exclude<T, U> = T extends U ? never : T;
+// A 的类型为 'b' | 'c'
+type A = Exclude<'a' | 'b' | 'c', 'a'>；
 ```
 
-如果在处理联合类型的条件判断时不想默认的分布式规则生效，可以使用方括号（`[]`）将 `extends` 左右的两个类型包裹一下。例如：
+如果在条件类型中处理联合类型的类型参数时不想默认的分布式规则生效，可以使用方括号（`[]`）将 `extends` 左右的两个类型包裹一下。例如：
 
 ```typescript
 
