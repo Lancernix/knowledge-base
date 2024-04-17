@@ -102,7 +102,12 @@ type B = number | boolean;
 type C = A extends B ? true : false;
 
 type ToArray<T> = T extends any ? T[] : never;
-// 这里的条件类型进行处理的时候，就会触发分布式规则。因为 T 这个类型是泛型 T'o'Ar'r
+// 这里的条件类型进行处理的时候，如果给定的 T 是一个联合类型，就会触发分布式规则。因为 T 这个类型是泛型 ToArray 的类型参数
+// 例如 type Result = ToArray<string | number>
+// 使用分布式规则分解一下
+type Result = ToArray<string | number>
+type ToArray<string> | type ToArray<number>
+
 ```
 
 常用的工具类型 `Exclude` 就是利用这个规则实现的：
