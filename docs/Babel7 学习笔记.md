@@ -59,7 +59,7 @@ Babel 的配置可以分为两种类型：
 
 > 注：`json`、`cjs` 是 v7.7.0 之后才支持的，而 `mjs` 则是 v7.8.0 之后支持的。论适用性广，还是 `js` 扩展名更好一些。
 
-在日常的项目中，两者最重要的区别在于：**如果你需要 Babel 应用于 `node_modules`，那么应该采用 `babel.config.*`，而不是 `.babelrc.*`**。Babel 官方建议项目中使用 JSON 配置文件，理由是：虽然 JS 配置文件在需要使用一些表达式或者构建时计算很方便，但 JS 配置的静态可分析性较差， 因此对可缓存性、代码检测、IDE 自动完成等有负面影响。 而 JSON 配置文件是静态 JSON 文件，它允许其他使用 Babel 的工具，如 Webpack 等打包工具安全地缓存 Babel 的结果， 这可能会带来巨大的构建性能优势。所以，如果你的项目中使用了新版本的 Babel，建议使用 `babel.config.json` 作为配置文件。如果是 monorepo 项目或者有特殊的需求，可以参考 [官网示例](https://babeljs.io/docs/config-files) 了解更加细致的配置。
+在日常的项目中，两者最重要的区别在于：**如果你需要 Babel 应用于 `node_modules`，那么应该采用 `babel.config.*`，而不是 `.babelrc.*`**。Babel 官方建议项目中使用 JSON 配置文件，理由是：虽然 JS 配置文件在需要使用一些表达式或者构建时计算很方便，但 JS 配置的静态可分析性较差， 因此对可缓存性、代码检测、IDE 自动完成等有负面影响。 而 JSON 配置文件是静态 JSON 文件，它允许其他使用 Babel 的工具，如 Webpack 等打包工具安全地缓存 Babel 的结果， 这可能会带来巨大的构建性能优势。所以，如果你的项目中使用了新版本的 Babel，建议使用 `babel.config.json` 作为配置文件。如果是 monorepo 项目或者有特殊的需求，可以参考 [官网示例](https://babeljs.io/docs/config-files) 了解更加细致的配置。  
 虽然 Babel 配置有多种写法，但是写起来都是差不多的。我们只需要重点关注其中两个参数即可：**`presets` 数组、`plugins` 数组**。
 
 ```javascript
@@ -134,12 +134,12 @@ var b = function () {};
 var c = a !== null && a !== void 0 ? a : 0;
 ```
 
-到这里，我们大概能总结出一个套路：如果你想要 Babel 编译一个代码中使用的新特性，只需要添加对应的插件（plugin）即可。很简单是吧，但随着而来的就是一个烦人的问题：我们日常的开发中已经全面拥抱 ES6+ 了，代码里到处都有新特性的使用，一个项目可能要配置几十甚至上百个插件才能保证 Babel 顺利编译。光是正确找出这些插件的名字可能就要花几个小时🤯，这换谁来都要创业未半而中道崩殂。。。
+到这里，我们大概能总结出一个套路：如果你想要 Babel 编译一个代码中使用的新特性，只需要添加对应的插件（plugin）即可。很简单是吧，但随着而来的就是一个烦人的问题：我们日常的开发中已经全面拥抱 ES6+ 了，代码里到处都有新特性的使用，一个项目可能要配置几十甚至上百个插件才能保证 Babel 顺利编译。光是正确找出这些插件的名字可能就要花几个小时🤯，这换谁来都要创业未半而中道崩殂。。。  
 那有没有类似插件包的东西呢？比如每年的新特性都整合成一个包，这样我们只需要添加几个插件集合就可以了。确实有这样的插件包，这就是我们的**预设（preset）。**
 
 ## 预设（preset）
 
-预设的作用和好处上面应该已经解释清楚了。以 React + TypeScript 项目为例，我们最为常用的预设只有三个：`@babel/preset-env`、`@babel/preset-react`、`@babel/preset-typescript`，这可比一堆插件看起来爽多了，大家的头发也可以少掉一点了🤣。其中最为重量级的当属 `@babel/preset-env`。`@babel/preset-env` 是一个智能的预设，它会随着迭代不断增加新特性进去。也就意味着我们可以长期使用这个预设，不必太担心它过时、不够全面的问题。
+预设的作用和好处上面应该已经解释清楚了。以 React + TypeScript 项目为例，我们最为常用的预设只有三个：`@babel/preset-env`、`@babel/preset-react`、`@babel/preset-typescript`，这可比一堆插件看起来爽多了，大家的头发也可以少掉一点了🤣。其中最为重量级的当属 `@babel/preset-env`。`@babel/preset-env` 是一个智能的预设，它会随着迭代不断增加新特性进去。也就意味着我们可以长期使用这个预设，不必太担心它过时、不够全面的问题。  
 当前的 Babel 练习项目中只有 js 代码，所以我们用 `@babel/preset-env` 就可以了。接下来我们来改造一下之前的配置：
 
 ```javascript
@@ -191,13 +191,13 @@ var e = obj1 === null || obj1 === void 0 ? void 0 : obj1.gender;
 var f = [1, 2, 3, 4].includes(5);
 ```
 
-可选链确实编译成功了，但是 `Array.prototype.includes` 为啥没有变化呢😮？按照我们之前的解释，这个新特性 `@babel/preset-env` 应该是可以处理的呀。怎么肥事🤨？
+可选链确实编译成功了，但是 `Array.prototype.includes` 为啥没有变化呢😮？按照我们之前的解释，这个新特性 `@babel/preset-env` 应该是可以处理的呀。怎么肥事🤨？  
 这里就需要澄清一下了：TC39 每年都会在 ES 标准中加入一些新的东西，一般我们都笼统的称为**新特性。但其实可以分成两大类，一种是语法（syntax），而一种是 API**。
 
 - 语法包括：`const/let`、`class`、模版字符串、可选链、`async/await` 等。
 - API 则包括对象的实例/静态方法，比如 `Array.from`、`Array.prototype.includes`，还有内置对象如 `Promise` 等。
 
-有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：**`@babel/preset-env` 可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。要编译新的 API，我们就需要另一位重量级选手 polyfill 了。polyfill，可以翻译为 " 填充物、垫片 "，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！
+有了语法和 API 这两个新的概念之后，我们需要更正一下之前的理解：**`@babel/preset-env` 可以将 ES6+ 的新语法成功编译成 ES5，但是对于新的 API，它无能为力。要编译新的 API，我们就需要另一位重量级选手 polyfill 了。polyfill，可以翻译为 " 填充物、垫片 "，对于前端来讲就是将 ES 高版本的 API 用 ES5 的 API 实现，这样就可以抹平不同环境之间的差异**，我们就可以愉快的使用新的 API 啦！  
 polyfill 并不是一个包的名字，而是一类方法的统称，你可以自己用 ES5 实现一个 `Array.prototype.includes`，这个方法也是一个 polyfill。目前 JavaScript 最好用、也最流行的 polyfill 是 `core-js`。在 Babel v7.4.0 之前，Babel 实现 polyfill 的方式是通过 `@babel/polyfill` 这个包，但是在 v7.4.0 之后，这个包就被废弃了，Babel 更加推荐直接使用 `core-js`+`regenerator-runtime`（实际上废弃的 `@babel/polyfill` 就是 `core-js` 和 `regenerator-runtime` 的一个整合）。
 
 > 注：v7.18.0 之后也不再需要 `regenerator-runtime`，具体原因下面会讲到。
@@ -266,7 +266,7 @@ var f = [1, 2, 3, 4].includes(5);
 - 类型：`string | Array<string> | { [string]: string }`。
 - 默认值：如果没有设置此项配置，那么 Babel 会尝试查找并使用项目中的 `.browserslistrc`、`package.json` 中的 `browserslist` 属性、或者是 Babel 配置文件中和 `presets` 同层级的 `targets` 配置项。如果前面的都没有找到，则表示 no targets，Babel 就认为我们的代码是要运行在版本非常早的浏览器上，会将新特性全部编译为 ES5。
 
-Babel 通过读取此配置来进行更加智能的代码编译。如果我们的代码运行环境是比较新的 Chrome，那么许多的 ES6+ 特性浏览器本身已经支持，Babel 就不会在编译这一部分的新特性，可以达到一个减少项目打包体积的效果。
+Babel 通过读取此配置来进行更加智能的代码编译。如果我们的代码运行环境是比较新的 Chrome，那么许多的 ES6+ 特性浏览器本身已经支持，Babel 就不会在编译这一部分的新特性，可以达到一个减少项目打包体积的效果。  
 在之前的练习中，我们是没有使用到这个配置的，现在我们添加一下试试效果：
 
 ```javascript
@@ -294,7 +294,7 @@ const b = () => {};
 const c = a ?? 0;
 ```
 
-你会发现，Babel 只对空值合并运算符进行了降级编译，箭头函数和 `const` 是不变的，原因就是 Chrome 56 已经支持了这两个新语法。
+你会发现，Babel 只对空值合并运算符进行了降级编译，箭头函数和 `const` 是不变的，原因就是 Chrome 56 已经支持了这两个新语法。  
 Babel 获取 `targets` 配置值的方式很多，那是不是随便选哪个都可以呢？如果你的项目中只有 `@babel/preset-env` 用到这个配置，那用哪一种没啥区别。但在实际项目中，往往还有其他的工具或者是 Babel 的其他插件也会需要项目运行目标环境（在 Babel 中就是 `targets`）这个配置，比如 `autoprefixer`、`postcss`、`stylelint` 等。为了能够共享配置，避免重复定义，一般更加推荐使用项目中的 `.browserslistrc` 文件或 `package.json` 中的 `browserslist` 属性。
 
 ## `useBuiltIns`
@@ -477,7 +477,7 @@ function generator() {
 
 ```
 
-此时再用 node 执行 `compiled.js` 就没有问题了。虽然问题解决了，但这里的处理方式其实是有点怪异的：`async/await/generator` 显然不属于新的 API，但我们却需要像对待新 API 一样采用类似于 polyfill 的方式进行一个处理。Babel 官方可能也注意到了这个问题，所以在 v7.18.0（确切的来讲是 `@babel/plugin-transform-regenerator` 的版本）之后，`regeneratorRuntime` 也变成了像其他的内联 helper 方法一样，并由 `@babel/plugin-transform-regenerator` 来提供。也就是说：v7.18.0 之后，`@babel/preset-env` 就可以完成 `async/await/generator` 的降级编译，我们不再需要 `regenerator-runtime` 这个包了。在我看来，这应该算是一种拨乱反正，更加明确了上面的一个约定：`@babel/preset-env` 负责语法，而 API 则交给 polyfill。
+此时再用 node 执行 `compiled.js` 就没有问题了。虽然问题解决了，但这里的处理方式其实是有点怪异的：`async/await/generator` 显然不属于新的 API，但我们却需要像对待新 API 一样采用类似于 polyfill 的方式进行一个处理。Babel 官方可能也注意到了这个问题，所以在 v7.18.0（确切的来讲是 `@babel/plugin-transform-regenerator` 的版本）之后，`regeneratorRuntime` 也变成了像其他的内联 helper 方法一样，并由 `@babel/plugin-transform-regenerator` 来提供。也就是说：v7.18.0 之后，`@babel/preset-env` 就可以完成 `async/await/generator` 的降级编译，我们不再需要 `regenerator-runtime` 这个包了。在我看来，这应该算是一种拨乱反正，更加明确了上面的一个约定：`@babel/preset-env` 负责语法，而 API 则交给 polyfill。  
 修改一下 `@babel/plugin-transform-regenerator` 版本尝试一下：
 
 ```yaml
@@ -639,7 +639,7 @@ module.exports = {
 
 # `@babel/plugin-transform-runtime`
 
-上面的介绍中，我们知道当 `useBuiltIns` 设置为 `usage` 时，Babel 只会引入我们需要的 polyfill，相比 `entry` 要轻量不少。那是不是我们在项目中一律使用 `useBuiltIns: 'usage'` 就万事大吉了呢？肯定不是的，不同的配置有优点也有缺点，还是要根据具体的业务场景来选择。这个我们先按下不表，接下来我们先来聊一下 `@babel/perset-env` 编译存在的问题。
+上面的介绍中，我们知道当 `useBuiltIns` 设置为 `usage` 时，Babel 只会引入我们需要的 polyfill，相比 `entry` 要轻量不少。那是不是我们在项目中一律使用 `useBuiltIns: 'usage'` 就万事大吉了呢？肯定不是的，不同的配置有优点也有缺点，还是要根据具体的业务场景来选择。这个我们先按下不表，接下来我们先来聊一下 `@babel/perset-env` 编译存在的问题。  
 第一个问题是：**通过 `@babel/preset-env` 进行 polyfill 时会污染全局环境，无论你用的是 `usage` 还是 `entry`**。以 `Array.prototype.includes` 为例，查看引入文件中的代码会发现，polyfill 就是在全局对象 `Array` 的原型上增加了对应的方法实现。
 
 ```javascript
@@ -787,7 +787,7 @@ var Person = /*#__PURE__*/(0, _createClass2.default)(function Person(name, age) 
 });
 ```
 
-原来内联的 helpers 变成了从 `@babel/runtime/helpers` 中引入。查看 `@babel/runtime` 的代码你就会发现，helpers 目录中包含的就是 Babel 所需要的所有辅助函数，`@babel/plugin-transform-runtime` 在这里就是做了一个替换。
+原来内联的 helpers 变成了从 `@babel/runtime/helpers` 中引入。查看 `@babel/runtime` 的代码你就会发现，helpers 目录中包含的就是 Babel 所需要的所有辅助函数，`@babel/plugin-transform-runtime` 在这里就是做了一个替换。  
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/12433539/1679498748595-e23b559b-369d-4705-bab8-27bbdd44b478.png#averageHue=%23272729&clientId=ua79b3d14-25fe-4&from=paste&height=674&id=ud1105ad1&originHeight=1011&originWidth=621&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=105496&status=done&style=none&taskId=ud470f32a-d3b7-4a38-a491-f0854a88232&title=&width=414)
 
 ### `corejs`
@@ -853,7 +853,7 @@ const b = (0, _at.default)(_context2 = [1, 2, 3, 4]).call(_context2, -1);
 const c = (0, _endsWith.default)(_context3 = 'lancernix').call(_context3, 'x');
 ```
 
-通过编译结果可以看到，polyfill 的引入方式有比较大的变化，这就是我们上面提到的 `@babel/plugin-transform-runtime` 在进行 polyfill 时用的是一个不会污染全局的 `core-js`，和 `preset-env` 所用到的不一样。
+通过编译结果可以看到，polyfill 的引入方式有比较大的变化，这就是我们上面提到的 `@babel/plugin-transform-runtime` 在进行 polyfill 时用的是一个不会污染全局的 `core-js`，和 `preset-env` 所用到的不一样。  
 细心的同学可能还会发现一个现象：在 Babel 的配置中我们设置了 `targets` 为 `chrome 60`，这个版本的 chrome 其实已经实现了 `Array.prototype.includes` 和 `String.prototype.endWith` 这两个方法了，但插件还是引入了这两个方法对应的 polyfill。但实际上 `@babel/plugin-transform-runtime` 是可以根据目标运行环境（`targets`）智能引入所需 polyfill 的，那为啥在这没有起作用呢？原因也很简单：我们将 `targets` 设置在了 `@babel/preset-env` 中，插件读不到这个配置，所以没办法进行智能引入。这就印证了我们上面提出的一个说法：推荐使用项目中的 `.browserslistrc` 文件或 `package.json` 中的 `browserslist` 属性来设置项目的目标运行环境，而不是在 `@babel/preset-env` 中配置。
 
 > 注：`@babel/plugin-transform-runtime` 在处理 helpers 和 regenerator 时，是可以根据 `@babel/preset-env` 中的 `targets` 配置进行智能引入的，但在使用 corejs 进行 polyfill 时却不行。所以为了避免出现不必要的问题，最好还是使用项目中的 `.browserslistrc` 文件或 `package.json` 中的 `browserslist` 属性设置项目的目标运行环境。
@@ -996,9 +996,9 @@ const runtimeVersion = require('@babel/runtime/package.json').version;
 
 ## 关于 `regeneratorRuntime` 的探讨
 
-上面我们提到过，在 v7.18.0 之后 Babel 将 `regeneratorRuntime` 变成了像其他的内联 helper 方法一样，我们不再需要单独安装 `regenerator-runtime` 包来注入一个全局变量了。但这里还有些细节需要关注，我们可以从 `@babel/runtime` 包的变化来深入了解一下。
-v7.18.0 之后 `regeneratorRuntime` 变成了一个 helper 方法，那应该在 `@babel/runtime/helpers` 中有一个对应的文件，打开 node_modules 验证一下，果然是有的。如果换一个 v7.18.0 之前的版本，你会发现 helpers 文件夹中是缺少这个文件的，很符合我们的理解。
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/12433539/1679840985292-fd6d80d3-5df2-4e4e-886c-e622df679f96.png#averageHue=%23262628&clientId=u0a3db822-07a0-4&from=paste&height=339&id=u6820910d&originHeight=508&originWidth=877&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=90120&status=done&style=none&taskId=u6a72bd3e-1d39-428c-87b5-c3567434b55&title=&width=584.6666666666666)
+上面我们提到过，在 v7.18.0 之后 Babel 将 `regeneratorRuntime` 变成了像其他的内联 helper 方法一样，我们不再需要单独安装 `regenerator-runtime` 包来注入一个全局变量了。但这里还有些细节需要关注，我们可以从 `@babel/runtime` 包的变化来深入了解一下。  
+v7.18.0 之后 `regeneratorRuntime` 变成了一个 helper 方法，那应该在 `@babel/runtime/helpers` 中有一个对应的文件，打开 node_modules 验证一下，果然是有的。如果换一个 v7.18.0 之前的版本，你会发现 helpers 文件夹中是缺少这个文件的，很符合我们的理解。  
+![regenerator](../pics/babel-1.png)  
 那既然已经是 helper 了，为啥在编译的时候不从 `@babel/runtime/helpers/regeneratorRuntime` 中引入，而从 `@babel/runtime/regeneratorRuntime` 中引入呢？也容易理解：v7.17.x 到 v7.18.x 的升级是兼容性升级，之前插件帮我们自动引入使用的是 `require("@babel/runtime/regenerator")`，如果直接改成 `require("@babel/runtime/helpers/regeneratorRuntime")`，会导致很多使用 v7.18.0 之前版本插件编译的代码无法正常运行。但也并非没有变化，对比一下 v7.18.0 前后 regenerator 文件夹中 `index.js` 文件的改动我们可以知道：v7.18.0 之前，这个文件就是简单的帮助我们引入 `regenerator-runtime` 这个包，但在 v7.18.0 时就改成了引入 helpers 文件夹中的 `regeneratorRuntime.js` 文件并导出。
 
 ```javascript
@@ -1090,7 +1090,7 @@ module.exports = {
 
 # 总结
 
-通过上面的学习，我们应该基本掌握了如何配置并使用 Babel，可喜可贺🥳！这篇近万字的文章花了一周的时间写完，对于我自己来说收获很大，精通 Babel 配置说不上，熟练应该没问题😛。如果你也想掌握如何使用 Babel，那么我强烈建议你动手敲一遍，看再多的文章，都比不上自己动手有用。这一类的文章通常时效性很强，可能你 2 个月后再看会发现这篇文章就已经过时了。最好的参考资料永远是官方文档，大部分问题都可以在官方文档中找到答案。如果有解决不了的疑惑或者问题，去 Github 提 issue ，和作者交流也是一种最有效率的方式。
+通过上面的学习，我们应该基本掌握了如何配置并使用 Babel，可喜可贺🥳！这篇近万字的文章花了一周的时间写完，对于我自己来说收获很大，精通 Babel 配置说不上，熟练应该没问题😛。如果你也想掌握如何使用 Babel，那么我强烈建议你动手敲一遍，看再多的文章，都比不上自己动手有用。这一类的文章通常时效性很强，可能你 2 个月后再看会发现这篇文章就已经过时了。最好的参考资料永远是官方文档，大部分问题都可以在官方文档中找到答案。如果有解决不了的疑惑或者问题，去 Github 提 issue ，和作者交流也是一种最有效率的方式。  
 最后，祝大家越来越强！完结撒花🎉🎉🎉
 
 # 参考文档

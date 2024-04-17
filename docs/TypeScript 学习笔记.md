@@ -130,9 +130,9 @@ type Result = ToArray<string | number>;
 
 这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 做题时发现其实编辑器对于 `Omit` 的类型提示是有误导性的。也可以通过 [第3题](https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit) 和 [第8题](https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2) 来进行一个验证。
 
-如果你在 VS Code 或者 [TS演练场](https://www.typescriptlang.org/zh/play)中
-![Omit](../pics/ts-1.png)
-
+如果你在 VS Code 或者 [TS演练场](https://www.typescriptlang.org/zh/play) 中查看 `Omit` 的类型提示，会得到如下的结果：  
+![Omit](../pics/ts-1.png)  
+自然的，在自己实现 `Omit` 时，就会使用这种写法，在 T
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
 https://github.com/type-challenges/type-challenges/issues/9050  
 https://github.com/microsoft/TypeScript/issues/39802
