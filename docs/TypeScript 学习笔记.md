@@ -85,7 +85,7 @@ type D = { name: string };
 type E = C extends D ? true : false;
 ```
 
-> 如何来判断一个类型可以赋值给另一个类型？可以类比与 Java 中的子类与父类，即：**类型A至少包含了类型B的所有属性和方法，**。
+> 如何来判断一个类型可以赋值给另一个类型？可以类比与 Java 中的子类与父类，即：**如果类型 A 至少包含了类型 B 的所有属性和方法，那么类型 A 就可以赋值给类型 B**。我一般习惯使用『子类型和父类型』的关系来理解。
 
 但如果 `extends` 左边的类型参数是一个联合类型（即：`Type1 | Type2`），处理逻辑会有些不同：**当 `T extends U ? X : Y` 中的 `T` 是一个联合类型的类型参数时，该条件类型将被分解为多个条件类型的联合（即分布式条件类型规则）**。
 
@@ -97,11 +97,12 @@ type E = C extends D ? true : false;
 type A = string | number;
 type B = number | boolean;
 // 这里的 A 并不是一个类型参数，而是一个具体的联合类型，所以并不会触发分布式规则
-// string | number 显然不是 number | boolean 的子类型（或者说）
-// C 的类型为 false
+// string | number 显然不能赋值给 number | boolean
+// 所以 C 的类型为 false
 type C = A extends B ? true : false;
-// 上面的Result最终会被解析为：
-type Result = Y | X;
+
+type ToArray<T> = T extends any ? T[] : never;
+// 这里的条件类型进行处理的时候，就会触发分布式规则。因为 T 这个类型是泛型 T'o'Ar'r
 ```
 
 常用的工具类型 `Exclude` 就是利用这个规则实现的：
