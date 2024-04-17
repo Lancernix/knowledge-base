@@ -148,14 +148,17 @@ type MyOmit<T, K> = {
 }
 
 type A = Omit<Todo2, 'description'>;
-const a: A;
-a.
-  
-  
-  
+const a: A = { title: '123', completed: true };
+// 修改 title 属性这里会报错：只读属性不可以赋值
+a.title = 'title'; 
 
 type B = MyOmit<Todo2, 'description'>;
+const b: B = { title: '123', completed: true };
+// 这里修改就是可以的
+b.title = 'title'; 
 ```
+
+确实是有差异的，通过编辑器的类型提示也可以看出来：
 
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
 https://github.com/microsoft/TypeScript/issues/39802
