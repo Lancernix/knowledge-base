@@ -3,7 +3,6 @@
 `as const` 是 TypeScript 中的一个类型断言，主要有两个作用：
 
 - **将变量的类型提升到『字面量类型』，而不是更泛化的类型**。例如，`const str = 'hello' as const` 其中 `str` 的类型将变成 `'hello'` 而不是 `string`。
-
 - **将变量视为只读，不能再被修改**。这意味着你不能修改数组/元组的元素或长度，不能修改对象的属性的值等。
 
 它**只能用在数组、对象和基本类型（字符串、数字等）的字面量上**，以下是一些示例：
@@ -129,8 +128,8 @@ type Result = ToArray<string | number>;
 
 # `Omit`
 
-这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 中发现其实编辑器的类型提示是有误导性的。通过
+这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 做题时发现其实编辑器对于 `Omit` 的类型提示是有误导性的。可以通过 [第3题](https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit) 和 [第8题](https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2)来进行一个验证。这里记录一下
 
-https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as
-https://github.com/type-challenges/type-challenges/issues/9050
+https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
+https://github.com/type-challenges/type-challenges/issues/9050  
 https://github.com/microsoft/TypeScript/issues/39802
