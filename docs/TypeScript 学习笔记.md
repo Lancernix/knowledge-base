@@ -121,5 +121,8 @@ type A = Exclude<'a' | 'b' | 'c', 'a'>；
 如果在条件类型中处理联合类型的类型参数时不想默认的分布式规则生效，可以使用方括号（`[]`）将 `extends` 左右的两个类型包裹一下。例如：
 
 ```typescript
-
+type ToArray<T> = [T] extends [any] ? T[] : never;
+// 这里用方括号处理了一下，即使给定的 T 是一个联合类型，也不会触发分布式规则
+// Result 的类型为 (string | number)[]
+type Result = ToArray<string | number>;
 ```
