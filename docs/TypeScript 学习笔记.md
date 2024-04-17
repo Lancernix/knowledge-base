@@ -71,4 +71,6 @@ type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U 
 
 # 条件类型 `extends`
 
- `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说
+ `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。但是这里需要注意的是，如果`extends`左边的类型是一个联合类型（即：`Type1 | Type2`），处理逻辑会有些不同。
+ 
+ 通常来说，`A extends B ? true : false`中
