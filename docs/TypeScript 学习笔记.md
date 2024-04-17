@@ -134,7 +134,15 @@ type Result = ToArray<string | number>;
 ![Omit](../pics/ts-1.png)  
 自然的，在自己实现 `Omit` 时，就会使用这种写法，在 Type Challenges 的第 3 题确实可以通过给出的 case。但是在第 8 题中，你会发现使用 `Omit` 可以通过给出的所有 case，但是如果用上面的实现方式替换 `Omit`，就会有部分 case 不通过。这两个不是完全一样的东西吗！？
 
-其实并不是一样的，如果你查看源码就会看到`Omit`的实现并不是编辑器给出的类型提示那样，而是：``
+其实并不是一样的，如果你查看 [源码](https://github.com/microsoft/TypeScript/blob/main/src/lib/es5.d.ts) 就会看到 `Omit` 的实现并不是编辑器给出的类型提示那样，而是：`type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>`。区别可以通过第 8 题的一个例子类型来说明：
+
+```typescript
+interface Todo2 {
+  readonly title: string
+  description?: string
+  completed: boolean
+}
+```
+
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
-https://github.com/type-challenges/type-challenges/issues/9050  
 https://github.com/microsoft/TypeScript/issues/39802
