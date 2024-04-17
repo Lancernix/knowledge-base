@@ -88,6 +88,7 @@ type E = C extends D ? true : false;
 > 如何来判断两个类型是否是子类型的和父类型？可以类比与 Java 中的子类与父类，即：**子类型继承了父类型的所有特征，并且有自己独有的特征**。
 
 但如果 `extends` 左边的类型是一个联合类型（即：`Type1 | Type2`），处理逻辑会有些不同：**当 `T extends U ? X : Y` 中的 `T` 是一个联合类型时，该条件类型将被分解为多个条件类型的联合（即分布式条件类型规则）**。例如：
+
 ```typescript
 type A = string | number;
 type B = number | boolean;
@@ -98,9 +99,15 @@ type Result = (string extends number | boolean ? X : Y) | (number extends number
 type Result = Y | X;
 ```
 
-常用的工具类型 `Exclude`、`Omit`其实都是利用这个规则实现的：
+常用的工具类型 `Exclude`、`Omit` 其实都是利用这个规则实现的：
+
 ```typescript
 type Exclude<T, U> = T extends U ? never : T;
 type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; }
 ```
-如果在处理联合类型的
+
+如果在处理联合类型的条件判断时不想默认的分布式规则生效，可以使用方括号（`[]`）将 `extends` 左右的两个类型包裹一下。例如：
+
+```typescript
+
+```
