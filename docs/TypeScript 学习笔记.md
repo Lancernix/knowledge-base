@@ -160,5 +160,9 @@ b.title = 'title';
 
 从上述的代码中能发现是有差异的，通过编辑器的类型提示也可以看出来：  
 ![类型差异](../pics/ts-2.png)  
-差异就在于：`Omit` 可以将属性修饰符 `readonly` 带过来，但是 `MyOmit` 不可以，具体解释可以参考这个 [issue](https://github.com/microsoft/TypeScript/issues/39802)  。所以如果只使用`Exclude`并不能完全实现`Omit`。一种就是官方的定义，另一种则是通过`as`的方式来实现（原理k）：
-https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
+差异就在于：`Omit` 可以将属性修饰符 `readonly` 带过来，但是 `MyOmit` 不可以，具体解释可以参考这个 [issue](https://github.com/microsoft/TypeScript/issues/39802) 。
+
+所以只使用 `Exclude` 并不能完全模拟 `Omit`。想要完全模拟，一种方式是官方的定义，另一种则是通过 `as` 的方式来实现（只能用在 v4.1 之后的版本，原理可以参考 [文档](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as)）：
+```typescript
+type MyOmit<T, K extends Proper>
+```
