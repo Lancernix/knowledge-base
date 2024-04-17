@@ -78,8 +78,13 @@ type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U 
 ```typescript
 type A = string;
 type B = string | number;
-type IsAString = A extends string ? true : false;  // 结果为 true
+// IsAString 的类型为 true
+type IsAString = A extends string ? true : false;
 
-
-
+type C = { name: string; age: number; };
+type D = { name: string };
+// E 的类型为 true
+type E = C extends D ? true : false;
 ```
+
+> 子类型继承了父类型的所有特征，并加上了自己的特征
