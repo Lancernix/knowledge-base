@@ -128,13 +128,13 @@ type Result = ToArray<string | number>;
 
 # `Omit`
 
-这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 做题时发现其实编辑器对于 `Omit` 的类型提示是有误导性的。也可以通过 [第3题](https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit) 和 [第8题](https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2) 来进行一个验证。
+这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 做题时发现其实编辑器对于 `Omit` 的类型提示是有误导性的（通过 [第3题](https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit) 和 [第8题](https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2) 可以验证）。
 
 如果你在 VS Code 或者 [TS演练场](https://www.typescriptlang.org/zh/play) 中查看 `Omit` 的类型提示，会得到如下的结果：  
 ![Omit](../pics/ts-1.png)  
 自然的，在自己实现 `Omit` 时，就会使用这种写法，在 Type Challenges 的第 3 题确实可以通过给出的 case。但是在第 8 题中，你会发现使用 `Omit` 可以通过给出的所有 case，但是如果用上面的实现方式替换 `Omit`，就会有部分 case 不通过。这两个不是完全一样的东西吗！？
 
-其实并不是一样的，如果你查看 [源码](https://github.com/microsoft/TypeScript/blob/main/src/lib/es5.d.ts) 就会看到 `Omit` 的实现并不是编辑器给出的类型提示那样，而是：`type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>`。其中的一个区别可以通过第 8 题的给出的例子类型来说明：
+其实并不是一样的，查看 [源码](https://github.com/microsoft/TypeScript/blob/main/src/lib/es5.d.ts) 就会看到 `Omit` 的实现并不是编辑器给出的类型提示那样，而是：`type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>`。其中的一个区别可以通过第 8 题的给出的例子类型来说明：
 
 ```typescript
 interface Todo2 {
@@ -158,8 +158,7 @@ const b: B = { title: '123', completed: true };
 b.title = 'title'; 
 ```
 
-从上述的代码中能发现是有差异的，通过编辑器的类型提示也可以看出来：
-![类型差异](../pics/ts-2.png)
-差异就在于，`Omit`可以将属性修饰符`readonly`带过来，但是`MyO`
+从上述的代码中能发现是有差异的，通过编辑器的类型提示也可以看出来：  
+![类型差异](../pics/ts-2.png)  
+差异就在于：`Omit` 可以将属性修饰符 `readonly` 带过来，但是 `MyOmit` 不可以，具体解释可以参考这个 [issue](https://github.com/microsoft/TypeScript/issues/39802)  。所以如果只使用`Exclude`并不能完全实现`Omit`。一种就是官方的定义，另一种则是通过`as`的方式来实现（原理k）：
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as  
-https://github.com/microsoft/TypeScript/issues/39802
