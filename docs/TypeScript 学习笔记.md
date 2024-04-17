@@ -129,6 +129,8 @@ type Result = ToArray<string | number>;
 
 # `Omit`
 
+这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 中发现其实编辑器的类型提示是有误导性的。通过
+
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as
 https://github.com/type-challenges/type-challenges/issues/9050
 https://github.com/microsoft/TypeScript/issues/39802
