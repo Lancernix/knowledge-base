@@ -98,7 +98,9 @@ type Result = (string extends number | boolean ? X : Y) | (number extends number
 type Result = Y | X;
 ```
 
-常用的工具类型 `Exclude`、`Omit`其实都是通过这种方式实现的：
+常用的工具类型 `Exclude`、`Omit`其实都是利用这个规则实现的：
 ```typescript
-
+type Exclude<T, U> = T extends U ? never : T;
+type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; }
 ```
+如果在处理联合类型的
