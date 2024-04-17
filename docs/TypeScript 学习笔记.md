@@ -68,3 +68,7 @@ type Arr3 = [...Arr1, boolean, number];
 // 这里有一个注意的地方就是：如果 ExampleType 是一个 Promise，那就需要递归来处理
 type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U extends PromiseLike<any> ? MyAwaited<U> : U : never;
 ```
+
+# 条件类型 `extends`
+
+ `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说
