@@ -71,9 +71,7 @@ type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U 
 
 # 条件类型 `extends`
 
- `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。但是这里需要注意的是，如果 `extends` 左边的类型是一个联合类型（即：`Type1 | Type2`），处理逻辑会有些不同。
-
- **通常来说，`A extends B ? true : false` 中如果 `A` 是 `B` 的子类型，那么结果就是 `true`，反之则是 `false`**。例如：
+ `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 是 `B` 的子类型，那么结果就是 `true`，反之则是 `false`。例如：
 
 ```typescript
 type A = string;
@@ -89,3 +87,12 @@ type E = C extends D ? true : false;
 
 > 如何来判断两个类型是否是子类型的和父类型？可以类比与 Java 中的子类与父类，即：**子类型继承了父类型的所有特征，并且有自己独有的特征**。
 
+但如果 `extends` 左边的类型是一个联合类型（即：`Type1 | Type2`），处理逻辑会有些不同：**当 `T extends U ? X : Y` 中的 `T` 是一个联合类型时，该条件类型将被分解为多个条件类型的联合（即分布式条件类型规则）**。例如：
+```typescript
+type A = string | number;
+type B = number | boolean;
+// A extends B 的计算方式如下：
+type Result = (string extends number | boolean ? X : Y) | (number extends number | boolean ? X : Y);
+// 上面的Result最终会被解析为：
+type Result = Y | X; // 因为 string 不是 number | boolean 的子类型，而 number 是。
+```
