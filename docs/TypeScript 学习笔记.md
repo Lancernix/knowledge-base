@@ -96,8 +96,10 @@ type E = C extends D ? true : false;
 ```typescript
 type A = string | number;
 type B = number | boolean;
-// 这里的 A 并不是一个类型参数，而是一个具体的联合类型
-type Result = A extends B ? true : false;
+// 这里的 A 并不是一个类型参数，而是一个具体的联合类型，所以并不会触发分布式规则
+// string | number 显然不是 number | boolean 的子类型
+// C 的类型为 false
+type C = A extends B ? true : false;
 // 上面的Result最终会被解析为：
 type Result = Y | X;
 ```
