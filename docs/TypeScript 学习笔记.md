@@ -91,8 +91,14 @@ type E = C extends D ? true : false;
 ```typescript
 type A = string | number;
 type B = number | boolean;
-// A extends B 的计算方式如下：
+// A extends B 的计算规则如下：
+// 将 A 的每一项都拆开和 B 进行条件判断，然后将多个结果再进行联合组成最终的结果
 type Result = (string extends number | boolean ? X : Y) | (number extends number | boolean ? X : Y);
 // 上面的Result最终会被解析为：
-type Result = Y | X; // 因为 string 不是 number | boolean 的子类型，而 number 是。
+type Result = Y | X;
+```
+
+常用的工具类型 `Exclude`、`Omit`其实都是通过这种方式实现的：
+```typescript
+
 ```
