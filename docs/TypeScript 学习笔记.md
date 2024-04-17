@@ -126,3 +126,5 @@ type ToArray<T> = [T] extends [any] ? T[] : never;
 // Result 的类型为 (string | number)[]
 type Result = ToArray<string | number>;
 ```
+
+# `Omit`
