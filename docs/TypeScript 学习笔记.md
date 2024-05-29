@@ -65,7 +65,11 @@ type Arr3 = [...Arr1, boolean, number];
 ```typescript
 // Type Challenges 189题：给定 Promise<ExampleType>，获取 ExampleType 类型
 // 这里有一个注意的地方就是：如果 ExampleType 是一个 Promise，那就需要递归来处理
-type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U extends PromiseLike<any> ? MyAwaited<U> : U : never;
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U>
+  ? U extends PromiseLike<any>
+  	? MyAwaited<U>
+	  : U
+  : never;
 ```
 
 # 条件类型 `extends`
