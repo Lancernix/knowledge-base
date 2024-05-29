@@ -72,7 +72,7 @@ type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U>
   : never;
 ```
 
-使用`extends`可以对
+如果想对字符串类型进行递归，则需要使用到
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
