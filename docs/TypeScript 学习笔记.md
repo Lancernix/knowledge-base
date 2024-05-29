@@ -1,3 +1,8 @@
+---
+tags:
+  - Typescript
+---
+
 # `as const` 类型断言
 
 `as const` 是 TypeScript 中的一个类型断言，主要有两个作用：
