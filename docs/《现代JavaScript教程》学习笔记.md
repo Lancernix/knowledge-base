@@ -236,6 +236,17 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 - **可以使用 `for…of` 进行迭代的对象，我们称之为可迭代对象**。
 - **拥有索引属性和 `length` 属性的对象，我们称之为类数组对象**。
 
+也可以从 TypeScript 的定义中帮助理解：
+
+```typescript
+
+
+interface ArrayLike<T> {
+  readonly length: number;
+  readonly [n: number]: T;
+}
+```
+
 接下来深入了解一下两者：
 
 如果一个对象想要能够被迭代，那么必须有一个名为 `Symbol.iterator` 的方法，这个方法通常称之为迭代器（iterator）。迭代器是一个必须包含 `next` 方法的对象，且需要 `next` 方法返回形如 `{done: Boolean, value: any}` 的一个对象。我们在使用 `for…of` 进行对象迭代的时候，`Symbol.iterator` 会被自动调用，从而完成这个迭代的过程。
@@ -285,8 +296,33 @@ const iteratorObj = {
 
 类数组对象首先是一个对象，这就意味着它不能使用数组所具有的方法，如 `pop`、`push` 等，即使该对象恰好有同名的方法，大概率结果也不会你预期的结果相同。
 
-```j
+```javascript
+const obj1 = {
+  a: 'a',
+  1: 'b',
+  length: 2,
+};
+const arr1 = Array.from(obj1); // ['a', 'b']
+
+// ------
+
+const obj2 = {
+  a: 'a',
+  1: 'b',
+  3: 'e',
+  length: 2,
+};
+const arr2 = Array.from(obj2); // [undefined, 'b']
+
+// ------
+
+const obj3 = {
+  a: 'a',
+  1: 'b',
+  3: 'e',
+  length: 4,
+};
+const arr3 = Array.from(obj3); // [undefined, 'b', undefined, 'e']
 ```
 
 数组和字符串这两种类型，既是可迭代的也是类数组的。`Array.from` 可以将可迭代对象或类数组对象转化为真正的数组。
-
