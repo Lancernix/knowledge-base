@@ -236,15 +236,6 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 - **可以使用 `for…of` 进行迭代的对象，我们称之为可迭代对象**。
 - **拥有索引属性和 `length` 属性的对象，我们称之为类数组对象**。
 
-也可以从 TypeScript 的定义中帮助理解：
-
-```typescript
-interface ArrayLike<T> {
-  readonly length: number;
-  readonly [n: number]: T;
-}
-```
-
 接下来深入了解一下两者：
 
 如果一个对象想要能够被迭代，那么必须有一个名为 `Symbol.iterator` 的方法，这个方法通常称之为迭代器（iterator）。迭代器是一个必须包含 `next` 方法的对象，且需要 `next` 方法返回形如 `{done: Boolean, value: any}` 的一个对象。我们在使用 `for…of` 进行对象迭代的时候，`Symbol.iterator` 会被自动调用，从而完成这个迭代的过程。
