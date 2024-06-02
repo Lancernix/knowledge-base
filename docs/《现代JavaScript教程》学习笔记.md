@@ -121,6 +121,7 @@ console.log(500 > user); // false
 const user = {
   name: 'John',
   money: 1000,
+  
   toString() {
     console.log('调用 toString');
     return '[object Object]';
@@ -140,6 +141,7 @@ console.log(500 > user); // '调用 valueOf' => '调用 toString' => false
 const user = {
   name: 'John',
   money: 100,
+  
   toString() {
     console.log('调用 toString');
     return user.name;
@@ -159,6 +161,7 @@ console.log(500 > user); // '调用 valueOf' => false
 const user = {
   name: 'John',
   money: 1000,
+  
   toString() {
     console.log('调用 toString');
     return user;
@@ -178,6 +181,7 @@ console.log(500 > user); // '调用 valueOf' => false
 const user = {
   name: 'John',
   money: 1000,
+  
   toString() {
     console.log('调用 toString');
     return user;
@@ -197,6 +201,7 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 const user = {
   name: 'John',
   money: 1000,
+  
   [Symbol.toPrimitive](hint) {
     console.log(`hint: ${hint}`);
     return hint == 'string' ? this.name : this.money;
@@ -211,7 +216,8 @@ console.log(500 > user); // 'hint: number' => false
 
 const user = {
   name: 'John',
-  money: 1000,  
+  money: 1000,
+  
   [Symbol.toPrimitive](hint) {
     console.log(`hint: ${hint}`);
     return hint == 'string' ? this : this;
@@ -261,37 +267,20 @@ for (const item of iteratorObj) {
 上面的例子中，我们通过给对象增加 `Symbol.iterator` 方法，将该对象变成了一个可迭代的对象。仔细想一想，其实迭代器对象和被迭代化的对象其实是两个对象，但也可以是同一个对象。比如这样：
 
 ```javascript
-
 const iteratorObj = {
-
   min: 0,
-
-  max: 5,
-
-  
+  max: 5,  
 
   [Symbol.iterator]() {
-
     return this;
-
-  },
-
-  
-
+  },  
   next() {
-
     while (this.min < this.max) {
-
       return { done: false, value: this.min++ };
-
     }
-
     return { done: true };
-
   },
-
 };
-
 ```
 
 类数组对象首先是一个对象，这就意味着它不能使用数组所具有的方法，如 `pop`、`push` 等，即使该对象恰好有同名的方法，大概率结果也不会你预期的结果相同。
