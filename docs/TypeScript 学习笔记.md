@@ -183,8 +183,8 @@ type MyOmit<T, K extends PropertyKey> = {
 
 # 模板字符串类型
 
-模板字符串类型是在 v4.1 版本中引入的，和JavaScript中的模板字符串用法类似，只不过是作用于类型。通过这个特性，我们可以实现很多更加精准的类型。比如一个 tooltip组件一般会有出现位置的属性，此时我们就可以通过模板字符串类型来定义这个属性的类型：
+模板字符串类型是在 v4.1 版本中引入的，和JavaScript中的模板字符串用法类似，只不过是作用于类型。通过这个特性，我们可以实现很多更加精准的类型。比如一个 tooltip组件一般会有出现位置的属性，此时我们就可以通过模板字符串类型来更加方便地定义这个属性的类型：
 
 ```typescript
-type Placement = 
+type Placement = 'top'| 'bottom' | 'left' | 'right' | `${'top' | 'bottom'}-${'left' | 'right'}` | `${'left' | 'right'}-${'top' | 'bottom'}`
 ```
