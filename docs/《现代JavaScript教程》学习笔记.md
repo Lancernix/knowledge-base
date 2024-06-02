@@ -233,8 +233,8 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 
 首先给出两个名词比较准确的概念：
 
-- 可以使用 `for…of` 进行迭代的对象，我们称之为可迭代对象。
-- 拥有索引属性和 `length` 属性的对象，我们称之为类数组对象。
+- **可以使用 `for…of` 进行迭代的对象，我们称之为可迭代对象**。
+- **拥有索引属性和 `length` 属性的对象，我们称之为类数组对象**。
 
 接下来深入了解一下两者：
 
