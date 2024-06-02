@@ -184,22 +184,22 @@ type MyOmit<T, K extends PropertyKey> = {
 # 模板字符串类型
 
 模板字符串类型是在 v4.1 版本中引入的，和 JavaScript 中的模板字符串用法类似，只不过是作用于类型。通过这个特性，我们可以实现定义更加精准的类型，也可以更加方便地定义一些类型。
+
 ```typescript
 type UserInput = string;
-
 // 使用模板字符串类型
-type Greeting = `Hello, ${UserInput}!`; 
+type Greeting = `Hello, ${UserInput}!`;
 
+const aGreeting: Greeting = "Hi there!"; // 类型检查错误，因为不符合模板
+const bGreeting: Greeting = 'Hello, Tom!'; // 类型检查通过
 const user = "Alice";
 const greeting: Greeting = `Hello, ${user}!`; // 类型检查通过
-
-const anotherGreeting: Greeting = "Hi there!"; // 类型检查错误，因为不符合模板
-
 ```
-比如一个 tooltip 组件一般会有出现位置的属性，此时我们就可以通过模板字符串类型来定义这个属性的类型：
+
+再比如一个 tooltip 组件一般会有出现位置的属性，此时我们就可以通过模板字符串类型来定义这个属性的类型：
 
 ```typescript
 type Placement = 'top'| 'bottom' | 'left' | 'right' | `${'top' | 'bottom'}-${'left' | 'right'}` | `${'left' | 'right'}-${'top' | 'bottom'}`
 ```
 
-同时，也能实现一些类似 JavaScript 中的 `Trim`、`Replace` 等字符串方法的类型，比如 Type Challenges 的 [第108题](https://github.com/type-challenges/type-challenges/blob/main/questions/00108-medium-trim) 和 [第116题](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace)
+同时，也能实现一些类似 JavaScript 中的 `Trim`、`Replace` 等字符串方法的类型，比如 Type Challenges 的 [第108题](https://github.com/type-challenges/type-challenges/blob/main/questions/00108-medium-trim) 和 [第116题](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace)。同时，gao
