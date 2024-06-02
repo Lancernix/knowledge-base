@@ -93,7 +93,7 @@ outer: for (let i = 0; i < 3; i++) {
    - 需要将对象转换成原始类型时，有 3 种情况，在 ECMA 规范中被称为 "hint"。它们分别是：`string`、`number`、`default`。  
       - 预期是一个字符串的操作时，hint 会是 `string`。如 `alert` 方法、对象作为属性 `obj1[obj] = 123` 等。  
       - 预期是一个数字的操作时，hint 会是 `number`。如数学运算。  
-      - 当不确定是什么样的操作时，hint 会是 `default`。如二元加运算 `+`（字符串和数字都可以用）。此外，有两个情况需要注意：对象被用于与字符串、数字或 symbol 进行 `==` 比较，这时到底应该进行哪种转换也不是很明确，因此使用 `default`hint；由于历史原因 `<`、`>` 运算符虽然也可以同时用于字符串和数字，但它们使用 `number`hint，而非 `default`。  
+      - 当不确定是什么样的操作时，hint 会是 `default`。如二元加运算 `+`（字符串和数字都可以用）。此外，有两个情况需要注意：对象被用于与字符串、数字或 symbol 进行 `==` 比较，这时到底应该进行哪种转换也不是很明确，因此使用 `default` hint；由于历史原因 `<`、`>` 运算符虽然也可以同时用于字符串和数字，但它们使用 `number`hint，而非 `default`。  
    - 进行转换时，JavaScript 会尝试查找并调用三个特定的方法：`Symbol.toPrimitive`、`toString`、`valueOf`。  
       - `Symbol.toPrimitive` 接受一个名为 hint 的参数（`hint: 'string' | 'number' | 'default'`），并返回一个原始值。  
       - `toString`、`valueOf` 是很常规的方法，在没有 symbol 时，它们被用于实现类型转换（当然现在仍然用于类型转换，只不过优先级没有 `Symbol.toPrimitive` 高）。  
@@ -210,31 +210,17 @@ console.log(500 > user); // 'hint: number' => false
 // ------ 
 
 const user = {
-
   name: 'John',
-
-  money: 1000,
-
-  
-
+  money: 1000,  
   [Symbol.toPrimitive](hint) {
-
     console.log(`hint: ${hint}`);
-
     return hint == 'string' ? this : this;
-
   },
-
 };
-
 console.log(String(user)); // 'TypeError: Cannot convert object to primitive value'
-
 console.log(Number(user)); // 'TypeError: Cannot convert object to primitive value'
-
 console.log('500' + user); // 'TypeError: Cannot convert object to primitive value'
-
 console.log(500 > user); // 'TypeError: Cannot convert object to primitive value'
-
 ```
 
 ## 可迭代对象 & 类数组对象
@@ -249,49 +235,27 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 如果一个对象想要能够被迭代，那么必须有一个名为 `Symbol.iterator` 的方法，这个方法通常称之为迭代器（iterator）。迭代器是一个必须包含 `next` 方法的对象，且需要 `next` 方法返回形如 `{done: Boolean, value: any}` 的一个对象。我们在使用 `for…of` 进行对象迭代的时候，`Symbol.iterator` 会被自动调用，从而完成这个迭代的过程。
 
 ```javascript
-
 const iteratorObj = {
-
   min: 0,
-
-  max: 5,
-
-  
+  max: 5,  
 
   [Symbol.iterator]() {
-
     return {
-
       from: this.min,
-
       to: this.max,
-
       next() {
-
         while (this.from < this.to) {
-
           return { done: false, value: this.from++ };
-
         }
-
         return { done: true };
-
       },
-
     };
-
   },
-
-};
-
-  
+};  
 
 for (const item of iteratorObj) {
-
   console.log(item); // 依次输出：0，1，2，3，4
-
 }
-
 ```
 
 上面的例子中，我们通过给对象增加 `Symbol.iterator` 方法，将该对象变成了一个可迭代的对象。仔细想一想，其实迭代器对象和被迭代化的对象其实是两个对象，但也可以是同一个对象。比如这样：
