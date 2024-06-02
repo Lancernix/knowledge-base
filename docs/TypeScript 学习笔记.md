@@ -202,4 +202,5 @@ const greeting: Greeting = `Hello, ${user}!`; // 类型检查通过
 type Placement = 'top'| 'bottom' | 'left' | 'right' | `${'top' | 'bottom'}-${'left' | 'right'}` | `${'left' | 'right'}-${'top' | 'bottom'}`
 ```
 
-同时，也能实现一些类似 JavaScript 中的 `Trim`、`Replace` 等字符串方法的类型，比如 Type Challenges 的 [第108题](https://github.com/type-challenges/type-challenges/blob/main/questions/00108-medium-trim) 和 [第116题](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace)。同时，gao
+同时，也能实现一些类似 JavaScript 中的 `Trim`、`Replace` 等字符串方法的类型，比如 Type Challenges 的 [第108题](https://github.com/type-challenges/type-challenges/blob/main/questions/00108-medium-trim) 和 [第116题](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace)。同时，TypeScript 也提供了一些内置的字符串工具类型，比如：`Uppercase<StringType>`、`Lowercase<StringType>`、`Capitalize<StringType>`、`Uncapitalize<StringType>` 等。
+
