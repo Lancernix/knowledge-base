@@ -239,8 +239,6 @@ console.log(500 > user); // 'TypeError: Cannot convert object to primitive value
 也可以从 TypeScript 的定义中帮助理解：
 
 ```typescript
-
-
 interface ArrayLike<T> {
   readonly length: number;
   readonly [n: number]: T;
