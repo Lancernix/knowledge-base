@@ -182,5 +182,3 @@ type MyOmit<T, K extends PropertyKey> = {
 ```
 
 # 模板字符串类型
-
-
