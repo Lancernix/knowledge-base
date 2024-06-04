@@ -79,6 +79,10 @@ type Trim<S extends string> = S extends | `${Space}${infer Res}` | `${infer Res}
   : S;
 ```
 
+# 枚举
+
+我们在谈论TypeScript语法时，一般都说的是其独有的类型语法，这些会在编译后全部被去除。但是`Enum`比较特殊，它既是一种类型，也是一个值。一般情况下编译之后会变成一个JavaScript对象，
+
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
