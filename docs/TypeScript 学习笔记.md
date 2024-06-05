@@ -14,11 +14,12 @@ type PersonValues = Person[keyof Person]; // string | number | boolean
 
 // ======
 
-type ArrayType = Array<string | number>
+const arr = [1, 2, 'test', true] as const;
+type ArrayType = typeof arr;
 // 获取数组某个元素的类型
-type EleType = ArrayType[index]
+type EleType = ArrayType[0]; // 1
 // 获取数组所有元素的类型
-type EleTypes = ArrayType[number]
+type EleTypes = ArrayType[number]; // true | 1 | 2 | "test"
 ```
 
 # `as const` 类型断言
