@@ -28,8 +28,8 @@ enum Color {
   Green, // 1
   Blue, // 2
 }
-// 获取枚举所有成员名的类型，注意这里需要先用typeof
-type EnumKeys = keyof typeof Color
+// 获取枚举所有成员名的类型，注意enum有点特殊，需要先用typeof
+type EnumKeys = keyof typeof Color;
 ```
 
 # `as const` 类型断言
