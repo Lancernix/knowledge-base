@@ -200,10 +200,37 @@ const enum Color {
 Object.values(Color); // 报错
 ```
 
-实际应用中，其实并不那么推荐使用枚举类型，除非有特殊的需求（比如你要用到反向映射的特性）。一般我们可以通过联合类型或者增加了`as const`断言的对象类型来替代：
+实际应用中，其实并不那么推荐使用枚举类型（因为它既是一个类型，也可能是一个 JavaScript 对象），除非有特殊的需求（比如你要用到反向映射的特性）。一般情况我们可以通过增加了 `as const` 断言的对象类型来替代，或者用更加简单的联合类型来替代：
 
 ```typescript
+enum Foo {
+  A,
+  B,
+  C,
+}
+
+const Bar = {
+  A: 0,
+  B: 1,
+  C: 2,
+} as const;
+
+if (x === Foo.A) {}
+// 等同于
+if (x === Bar.A) {}
+
+// ======
+
+enum Direction {
+  Up = 'UP',
+  Down = 'DOWN',
+  Left = 'LEFT',
+  Right = 'RIGHT',
+}
+
+type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
 ```
+
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
