@@ -200,7 +200,7 @@ const enum Color {
 Object.values(Color); // 报错
 ```
 
-实际应用中，其实并不那么推荐使用枚举类型（因为它既是一个类型，也可能是一个 JavaScript 对象），除非有特殊的需求（比如你要用到反向映射的特性）。一般情况我们可以通过增加了 `as const` 断言的对象类型来替代，或者用更加简单的联合类型来替代：
+实际应用中，其实并不那么推荐使用枚举类型（因为它既是一个类型，也可能是一个 JavaScript 对象），除非有特殊的需求（比如你要用到反向映射的特性）。一般情况我们可以通过增加了 `as const` 断言的对象类型来替代，或者用更加简单的联合类型来替代。具体如何选用，就看你的需求和习惯了。
 
 ```typescript
 enum Foo {
@@ -221,14 +221,14 @@ if (x === Bar.A) {}
 
 // ======
 
-enum Direction {
+enum Foo {
   Up = 'UP',
   Down = 'DOWN',
   Left = 'LEFT',
   Right = 'RIGHT',
 }
 
-type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+type Bar = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 ```
 
 # 条件类型 `extends`
