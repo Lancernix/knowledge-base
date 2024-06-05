@@ -107,6 +107,8 @@ type Trim<S extends string> = S extends | `${Space}${infer Res}` | `${infer Res}
 
 我们在谈论 TypeScript 语法时，一般都说的是其独有的类型语法，这些会在编译后全部被去除。但是枚举比较特殊，它既是一种类型，也是一个值，编译之后会变成一个 JavaScript 对象（常量枚举 `const enum` 除外）。
 
+`enum`
+
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
@@ -169,8 +171,8 @@ type Result = ToArray<string | number>;
 
 这个内建类型并不难实现，也不难理解。这里记录的原因是在 Type Challenges 做题时发现其实编辑器对于 `Omit` 的类型提示是有误导性的（通过 [第3题](https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit) 和 [第8题](https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2) 可以验证）。
 
-如果你在 VS Code 或者 [TS演练场](https://www.typescriptlang.org/zh/play) 中查看 `Omit` 的类型提示，会得到如下的结果：
-![Omit](../pics/ts-1.png)
+如果你在 VS Code 或者 [TS演练场](https://www.typescriptlang.org/zh/play) 中查看 `Omit` 的类型提示，会得到如下的结果：  
+![Omit](../pics/ts-1.png)  
 自然的，在自己实现 `Omit` 时，就会使用这种写法，在 Type Challenges 的第 3 题确实可以通过给出的 case。但是在第 8 题中，你会发现使用 `Omit` 可以通过给出的所有 case，但是如果用上面的实现方式替换 `Omit`，就会有部分 case 不通过。这两个不是完全一样的东西吗！？
 
 其实并不是一样的，查看 [源码](https://github.com/microsoft/TypeScript/blob/main/src/lib/es5.d.ts) 就会看到 `Omit` 的实现并不是编辑器给出的类型提示那样，而是：`type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>`。其中的一个区别可以通过第 8 题的给出的例子类型来说明：
@@ -197,8 +199,8 @@ const b: B = { title: '123', completed: true };
 b.title = 'title'; 
 ```
 
-从上述的代码中能发现是有差异的，通过编辑器的类型提示也可以看出来：
-![类型差异](../pics/ts-2.png)
+从上述的代码中能发现是有差异的，通过编辑器的类型提示也可以看出来：  
+![类型差异](../pics/ts-2.png)  
 差异就在于：`Omit` 可以将属性修饰符 `readonly` 带过来，但是 `MyOmit` 不可以，具体解释可以参考这个 [issue](https://github.com/microsoft/TypeScript/issues/39802) 。
 
 所以只使用 `Exclude` 并不能完全模拟 `Omit`。想要完全模拟，一种方式是官方的定义，另一种则是通过 `as` 的方式来实现（只能用在 v4.1 之后的版本，原理可以参考 [文档](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as)）：
