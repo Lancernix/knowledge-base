@@ -107,9 +107,38 @@ type Trim<S extends string> = S extends | `${Space}${infer Res}` | `${infer Res}
 
 我们在谈论 TypeScript 语法时，一般都说的是其独有的类型语法，这些会在编译后全部被去除。但是枚举比较特殊，它既是一种类型，也是一个值，编译之后会变成一个 JavaScript 对象（常量枚举 `const enum` 除外）。
 
-```
+```typescript
+// enum成员如果都没赋值，默认会从0开始按照顺序为每个成员赋值
+enum Color {
+  Red, // 0
+  Green, // 1
+  Blue, // 2
+}
+
+// 如果只设定某一个成员的值，后面成员的值就会从这个值开始递增，前面的依然默认赋值
+enum Color {
+  Red, // 0
+  Green = 7,
+  Blue, // 8
+}
+
+// 字符串enum的所有成员值，都必须显式设置。如果没有设置，成员值默认为数值，且位置必须在字符串成员之前
+enum Foo {
+  A, // 0
+  B = 'hello',
+  C, // 报错
+}
+enum Bar {
+  A, // 0
+  One = 'One',
+  Two = 'Two',
+  Three = 3,
+  Four = 4,
+}
 ```
 
+`enum`还有几个比较值得注意的点：
+- 枚举值如果是数字，则存在fan'xiang
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
