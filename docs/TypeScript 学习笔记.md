@@ -144,6 +144,28 @@ enum Bar {
 - 如果你想获取一个 `enum` 的所有枚举值，可以通过 `Object.values()` 来实现，不过只适用于全部是字符串的枚举。如果有数字，则需要进行特殊的处理。
 
 ```typescript
+// 字符串枚举
+enum Status {
+  Pending = 'PENDING',
+  Fullfilled = 'FULLFILLED',
+  Rejected = 'REJECTED',
+}
+// 编译之后
+let Status = {
+  Pending: 'PENDING',
+  Fullfilled: 'FULLFILLED',
+  Rejected: 'REJECTED',
+};
+
+// ======
+
+// 数字枚举
+enum Color {
+  black,
+  red,
+  blue
+}
+// 编译之后
 
 ```
 
