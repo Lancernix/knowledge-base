@@ -163,9 +163,28 @@ let Status = {
 enum Color {
   black,
   red,
-  blue
+  blue,
 }
 // 编译之后
+// 这里就可以看出如果值是数字，确实存在反向映射的现象
+let Color = {
+  black: 0,
+  red: 1,
+  blue: 2,
+  0: 'black',
+  1: 'red',
+  2: 'nlue',
+};
+// 此时用Object.values()获取到的并不只有[0, 1, 2]，就需要再进一步处理才可以
+
+// ======
+
+// 常量枚举无法获取所有的枚举值或者枚举成员，因为它
+const enum Color {
+  black, // 0
+  red, // 1
+  blue, // 2
+}
 
 ```
 
