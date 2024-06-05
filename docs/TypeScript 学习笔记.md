@@ -20,6 +20,16 @@ type ArrayType = typeof arr;
 type EleType = ArrayType[0]; // 1
 // 获取数组所有元素的类型
 type EleTypes = ArrayType[number]; // true | 1 | 2 | "test"
+
+// ======
+
+enum Color {
+  Red, // 0
+  Green, // 1
+  Blue, // 2
+}
+// 获取枚举所有成员名的类型，注意这里需要先用typeof
+type EnumKeys = keyof typeof Color
 ```
 
 # `as const` 类型断言
@@ -179,14 +189,15 @@ let Color = {
 
 // ======
 
-// 常量枚举无法获取所有的枚举值或者枚举成员，因为它
+// 常量枚举无法获取所有的枚举值或者枚举成员，因为它编译之后并不存在对应的对象
 const enum Color {
   black, // 0
   red, // 1
   blue, // 2
 }
-
+Object.values(Color); // 报错
 ```
+
 
 # 条件类型 `extends`
 
