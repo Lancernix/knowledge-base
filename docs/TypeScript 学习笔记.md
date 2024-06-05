@@ -29,7 +29,9 @@ enum Color {
   Blue, // 2
 }
 // 获取枚举所有成员名的类型，注意enum有点特殊，需要先用typeof
-type EnumKeys = keyof typeof Color;
+type EnumKeys = keyof typeof Color; // "Red" | "Green" | "Blue"
+// 可以用in运算符来获取枚举的所有值
+type EnumValues = { [value in Color]: value } // 其实就是本身Color，这里关注一下in操作即可
 ```
 
 # `as const` 类型断言
@@ -198,7 +200,10 @@ const enum Color {
 Object.values(Color); // 报错
 ```
 
+实际应用中，其实并不那么推荐使用枚举类型，除非有特殊的需求（比如你要用到反向映射的特性）。一般我们可以通过联合类型或者增加了`as const`断言的对象类型来替代：
 
+```typescript
+```
 # 条件类型 `extends`
 
  `extends … ? … : …` 和 JavaScript 中的三元运算很相似，通过判断来获得不同条件下给定的类型。通常来说，`A extends B ? true : false` 中如果 `A` 可以赋值给 `B` （可以理解为 `A` 是 `B` 的子类型），那么结果就是 `true`，反之则是 `false`。例如：
