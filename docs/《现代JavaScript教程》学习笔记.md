@@ -4,8 +4,8 @@
 
 大多数的基本数据类型转换都是比较容易理解的。需要注意的是几种特定的转换，不太符合我们**自以为**的理解：
 
-- `null` 和 `undefined` 表现并不一致。  
-   - `Number(undefined) => NaN`  
+- `null` 和 `undefined` 表现并不一致。
+   - `Number(undefined) => NaN`
    - `Number(null) => 0`
 - `string` 类型转换成 `number` 时会忽略两边的空白字符（包括 `\t\n` 等）之后再尝试转换，如果为空字符会转换为 0；其他情况下，则需要剩下的整体看上去是一个合法的数字才可以成功转换。
 
@@ -23,17 +23,17 @@ parseInt(' 12q ') => 12
 
 > `parseInt` 和 `parseFloat` 是从字符串中从左至右读取数字，直到不能没办法读取为止。如果第一个（不包括空格、`\t`、`\n`）非数字，则会直接返回 `NaN`。
 
-- `'0'` 和 `' '`（只有空格的字符串）的布尔转换都是 `true`（简单理解就是**空字符串才会转换成 `false`**。  
-   - `Boolean('') => false`  
-   - `Boolean(' ') => true`  
+- `'0'` 和 `' '`（只有空格的字符串）的布尔转换都是 `true`（简单理解就是**空字符串才会转换成 `false`**。
+   - `Boolean('') => false`
+   - `Boolean(' ') => true`
    - `Boolean('0') => true`
 
 ## 数学运算符
 
 - 一元运算符 `+/-` 和自增/自减运算符 `++/--` 的优先级高于二元运算符。
 - 赋值运算符 `=` 的优先级很低。
-- `+` 作为二元运算符和其他的二元运算符有些不同，主要表现在字符串的处理上。通常二元运算符在遇到字符串时，会先将其转换成数字再进行运算，但 `+` 对待字符串是一个合并操作。  
-   - `4 + 5 + 'px' = '9px'`  
+- `+` 作为二元运算符和其他的二元运算符有些不同，主要表现在字符串的处理上。通常二元运算符在遇到字符串时，会先将其转换成数字再进行运算，但 `+` 对待字符串是一个合并操作。
+   - `4 + 5 + 'px' = '9px'`
    - `'$' + 4 + 5 = '$45'`
 
 一些容易出错的例子：
@@ -89,19 +89,19 @@ outer: for (let i = 0; i < 3; i++) {
 ## 对象转换为原始类型
 
 - 所有对象转换为布尔值均为 `true`。
-- 在对象（这里的对象指的是我们最常用的普通对象）进行数字转换或者字符串转换时，有一定的转换知识和规则：  
-   - 需要将对象转换成原始类型时，有 3 种情况，在 ECMA 规范中被称为 "hint"。它们分别是：`string`、`number`、`default`。  
-      - 预期是一个字符串的操作时，hint 会是 `string`。如 `alert` 方法、对象作为属性 `obj1[obj] = 123` 等。  
-      - 预期是一个数字的操作时，hint 会是 `number`。如数学运算。  
-      - 当不确定是什么样的操作时，hint 会是 `default`。如二元加运算 `+`（字符串和数字都可以用）。此外，有两个情况需要注意：对象被用于与字符串、数字或 symbol 进行 `==` 比较，这时到底应该进行哪种转换也不是很明确，因此使用 `default` hint；由于历史原因 `<`、`>` 运算符虽然也可以同时用于字符串和数字，但它们使用 `number`hint，而非 `default`。  
-   - 进行转换时，JavaScript 会尝试查找并调用三个特定的方法：`Symbol.toPrimitive`、`toString`、`valueOf`。  
-      - `Symbol.toPrimitive` 接受一个名为 hint 的参数（`hint: 'string' | 'number' | 'default'`），并返回一个原始值。  
-      - `toString`、`valueOf` 是很常规的方法，在没有 symbol 时，它们被用于实现类型转换（当然现在仍然用于类型转换，只不过优先级没有 `Symbol.toPrimitive` 高）。  
-      - 默认情况下，`toString` 返回 `[object Object]` 字符串；`valueOf` 返回对象本身。  
-      - 这三个方法都应该返回一个原始值，这样才有实际意义。`Symbol.toPrimitive` 必须返回一个原始值，否则会出现 error；但 `toString` 或 `valueOf` 其中一个返回对象并不会出现 error；不过如果 `toString` 或 `valueOf` 都返回了对象，同样也会出现 error。  
-   - 具体的转换规则如下：  
-      1. 如果 `Symbol.toPrimitive` 方法存在，则调用它进行转换。  
-      2. 否则，如果为 `string` hint，则按照顺序调用 `toString`、`valueOf`：`toString` 的返回值为原始值，则不会再调用 `valueOf`；否则将调用 `valueOf`；若 `valueOf` 的值仍然是一个对象，则出现 error。  
+- 在对象（这里的对象指的是我们最常用的普通对象）进行数字转换或者字符串转换时，有一定的转换知识和规则：
+   - 需要将对象转换成原始类型时，有 3 种情况，在 ECMA 规范中被称为 "hint"。它们分别是：`string`、`number`、`default`。
+      - 预期是一个字符串的操作时，hint 会是 `string`。如 `alert` 方法、对象作为属性 `obj1[obj] = 123` 等。
+      - 预期是一个数字的操作时，hint 会是 `number`。如数学运算。
+      - 当不确定是什么样的操作时，hint 会是 `default`。如二元加运算 `+`（字符串和数字都可以用）。此外，有两个情况需要注意：对象被用于与字符串、数字或 symbol 进行 `==` 比较，这时到底应该进行哪种转换也不是很明确，因此使用 `default` hint；由于历史原因 `<`、`>` 运算符虽然也可以同时用于字符串和数字，但它们使用 `number`hint，而非 `default`。
+   - 进行转换时，JavaScript 会尝试查找并调用三个特定的方法：`Symbol.toPrimitive`、`toString`、`valueOf`。
+      - `Symbol.toPrimitive` 接受一个名为 hint 的参数（`hint: 'string' | 'number' | 'default'`），并返回一个原始值。
+      - `toString`、`valueOf` 是很常规的方法，在没有 symbol 时，它们被用于实现类型转换（当然现在仍然用于类型转换，只不过优先级没有 `Symbol.toPrimitive` 高）。
+      - 默认情况下，`toString` 返回 `[object Object]` 字符串；`valueOf` 返回对象本身。
+      - 这三个方法都应该返回一个原始值，这样才有实际意义。`Symbol.toPrimitive` 必须返回一个原始值，否则会出现 error；但 `toString` 或 `valueOf` 其中一个返回对象并不会出现 error；不过如果 `toString` 或 `valueOf` 都返回了对象，同样也会出现 error。
+   - 具体的转换规则如下：
+      1. 如果 `Symbol.toPrimitive` 方法存在，则调用它进行转换。
+      2. 否则，如果为 `string` hint，则按照顺序调用 `toString`、`valueOf`：`toString` 的返回值为原始值，则不会再调用 `valueOf`；否则将调用 `valueOf`；若 `valueOf` 的值仍然是一个对象，则出现 error。
       3. 否则，如果为 `number` 或者 `default` hint，则按顺序调用 `valueOf`、`toString`（处理方式同第二点，不过顺序不同）。
 
 可以参照以下例子理解：
@@ -291,7 +291,7 @@ const obj1 = {
   1: 'b',
   length: 2,
 };
-const arr1 = Array.from(obj1); // ['a', 'b']
+const arr1 = Array.from(obj1); // [undefined, 'b']
 
 // ------
 
