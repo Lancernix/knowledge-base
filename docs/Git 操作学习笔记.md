@@ -1,17 +1,11 @@
 # `checkout` 与 `switch`
 
-两者都可以用来切换和创建分支。`checkout` 除去分支管理之外，还可以进行文件管理等操作，语义比较混乱，所以 Git 团队在 **v2.23** 之后引入的新命令 `switch`，旨在提供更清晰、更专注于分支操作的命令。同时也更加推荐使用`switch`替代`checkout`。
+两者都可以用来切换和创建分支。`checkout` 除去分支管理之外，还可以进行文件管理等操作，语义比较混乱，所以 Git 团队在 **v2.23** 之后引入的新命令 `switch`，旨在提供更清晰、更专注于分支操作的命令。同时也更加推荐使用 `switch` 替代 `checkout`。
 
-- `git checkout <分支名>` 和`git switch <分支名>`的 如果**仅仅**考虑创建并切换到本地分支 `feature_01`，并且**不考虑** `-b`、`-t` 等附加参数，也不考虑 `git checkout` 分离头指针的功能，那么在**本地仓库已经知道远程仓库有 `feature_01` 分支** 的情况下：
+## `git checkout <分支名>` vs `git switch <分支名>`
 
-- `git checkout feature_01`
-- `git switch feature_01`
-
-这两条命令的**最终结果**确实是一样的，都是创建并切换到本地分支 `feature_01`，并关联到远程分支 `origin/feature_01`。
-
-
-
-`git checkout feature_01` 命令的含义是 **切换** 到名为 `feature_01` 的分支。如果本地不存在 `feature_01` 这个分支，那么执行命令会出错：`error: pathspec 'feature_01' did not match any file(s) known to git。  
+作用都是切换到指定的分支，最终的效果也一样，两者是可以相互替换的。这里有一点需要注意的地方：
+- 如果本地已经有了指定的分支，能成功切
 如果远程仓库已经有这个分支，那么执行上述命令会自动创建并切换到与远程分支对应的本地分支（前提是本地仓库已经有了远程分支的信息，即在这个命令之前执行过`git fetch`）  
 `
 
