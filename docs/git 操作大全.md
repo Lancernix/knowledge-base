@@ -1,7 +1,7 @@
 # checkout
 
 `git checkout feature_01` 命令的含义是 **切换** 到名为 `feature_01` 的分支。如果本地不存在`feature_01`这个分支，那么执行命令会出错：`error: pathspec 'feature_01' did not match any file(s) known to git。
-如果远程仓库已经有这个分支，那么执行上述命令hu
+如果远程仓库已经有这个分支，那么执行上述命令会自动创建并切换到与远程分支对应的本地分支（前提是本地仓库已经有了远程分支的信息，即在这个命令之前执行过`git fetch`）
 `
 
 **例子:**
