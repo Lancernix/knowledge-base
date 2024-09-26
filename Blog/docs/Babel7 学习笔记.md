@@ -998,7 +998,7 @@ const runtimeVersion = require('@babel/runtime/package.json').version;
 
 上面我们提到过，在 v7.18.0 之后 Babel 将 `regeneratorRuntime` 变成了像其他的内联 helper 方法一样，我们不再需要单独安装 `regenerator-runtime` 包来注入一个全局变量了。但这里还有些细节需要关注，我们可以从 `@babel/runtime` 包的变化来深入了解一下。  
 v7.18.0 之后 `regeneratorRuntime` 变成了一个 helper 方法，那应该在 `@babel/runtime/helpers` 中有一个对应的文件，打开 node_modules 验证一下，果然是有的。如果换一个 v7.18.0 之前的版本，你会发现 helpers 文件夹中是缺少这个文件的，很符合我们的理解。  
-![regenerator](../pics/babel-1.png)  
+![regenerator](babel-1.png)  
 那既然已经是 helper 了，为啥在编译的时候不从 `@babel/runtime/helpers/regeneratorRuntime` 中引入，而从 `@babel/runtime/regeneratorRuntime` 中引入呢？也容易理解：v7.17.x 到 v7.18.x 的升级是兼容性升级，之前插件帮我们自动引入使用的是 `require("@babel/runtime/regenerator")`，如果直接改成 `require("@babel/runtime/helpers/regeneratorRuntime")`，会导致很多使用 v7.18.0 之前版本插件编译的代码无法正常运行。但也并非没有变化，对比一下 v7.18.0 前后 regenerator 文件夹中 `index.js` 文件的改动我们可以知道：v7.18.0 之前，这个文件就是简单的帮助我们引入 `regenerator-runtime` 这个包，但在 v7.18.0 时就改成了引入 helpers 文件夹中的 `regeneratorRuntime.js` 文件并导出。
 
 ```javascript
