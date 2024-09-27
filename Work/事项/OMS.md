@@ -51,7 +51,7 @@ internals
 
 ### 中文直接作为值
 
- -  src/components/DistrictsComponent/index.tsx: ["Line [128]: 其它区", "Line [200]: 中国"]
+ -  src/components/DistrictsComponent/index.tsx: "Line [128]: 其它区", "Line [200]: 中国"
 - "src/pages/InboundDetailManage/modules/FormTable.tsx": ["Line [107]: 质量状态 "], 中文做匹配
 - "src/pages/LackSku/modules/FormTable.tsx": ["Line [74]: 质量状态 "], 中文做匹配
 
