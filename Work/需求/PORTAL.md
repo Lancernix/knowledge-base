@@ -1,0 +1,13 @@
+# 需求
+
+| 名称                                                                                                                                                             | 分支                     | 进度          | 工时  | 事项                  | 备注                |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ----------- | --- | ------------------- | ----------------- |
+| [【新百伦】退货包裹登记推送接口增加分发策略](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2476254&projectId=1654&iterativeId=46628)               |                        | *#Done*     | -   | 区域日常运维 -KJ24019708  |                   |
+| 对外标准接口模块开发&一些优化                                                                                                                                                | `feature/202407/V7.25` | #Done       | -   | 底盘服务治理              |                   |
+| [【工具化】Portal页面操作友好性优化 - 1、外部系统对接配置](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2524459&projectId=1654&iterativeId=47528)   | `feature/202408/v8.15` | #Done       | 3   | 客户接入工具化 -KJ24012732 | 包括下面 3 个          |
+| [【工具化】Portal页面操作友好性优化 - 2、外部报文配置](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2533079&projectId=1654&iterativeId=47528)     | `feature/202408/v8.15` | #Done       |     |                     |                   |
+| [【工具化】Portal页面操作友好性优化 - 3、标准接口管理](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2533081&projectId=1654&iterativeId=47528 )    | `feature/202408/v8.15` | #Done       |     |                     |                   |
+| [【工具化】Portal页面操作友好性优化 - 4、新增推送配置参数管理](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2533082&projectId=1654&iterativeId=47528) | `feature/202408/v8.15` | #Done       |     |                     |                   |
+| [【客户接入工具化】配置治理（新）](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2508552&projectId=1654&iterativeId=47528)                    |                        | #NotStarted | *2* | 客户接入工具化 -KJ24012732 | 代码在 master ，暂时注释掉 |
+|                                                                                                                                                                |                        |             |     |                     |                   |
+|                                                                                                                                                                |                        |             |     |                     |                   |
