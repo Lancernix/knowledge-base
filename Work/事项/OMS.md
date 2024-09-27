@@ -49,6 +49,19 @@ internals
 
 ## 国际化
 
+### 中文直接作为值
+
+ -  src/components/DistrictsComponent/index.tsx: ["Line [128]: 其它区", "Line [200]: 中国"]
+- "src/pages/InboundDetailManage/modules/FormTable.tsx": ["Line [107]: 质量状态 "], 中文做匹配
+- "src/pages/LackSku/modules/FormTable.tsx": ["Line [74]: 质量状态 "], 中文做匹配
+
+**国际化目前存在的问题：**
+
+- [ ] 存在使用中文做匹配的逻辑（不到 10 个）
+- [ ] 使用 `i8nMessageToMap` 定义的词条提取脚本提取不出来（大概 40 个文件），需要改造成 `defineMessages`，脚本改造好像看起来有点难度
+- [ ] 在非组件逻辑中使用 `react-intl`，目前程序中提供了一个直接从 json 文件中提取指定 id 的词条来实现，可以考虑切换官方推荐的方式
+- [ ] 提取脚本是直接覆盖还是增量更新
+
 ## 列表筛选项初始值设置&重置（2024 年 07 月 29 日）
 
 本次改动将项目的列表筛选项初始值设置都统一了（**这里说的只是列表页，不涉及弹窗等页面**），具体的场景和开发规范是这样的：

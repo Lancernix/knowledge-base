@@ -2,6 +2,7 @@
 
 | 名称                                                                                                                                                           | 分支                         | 进度    | 工时    | 事项                              | 备注    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ----- | ----- | ------------------------------- | ----- |
+| [安踏-2B订单增加预报功能](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2136646&projectId=1832&iterativeId=38678)                     | `develop_antayubao_lpf`    | #UAT  | -     |                                 |       |
 | [出库通用-根据OT取号接口响应出参更新覆盖订单承运商产品](https://confluence.sf-express.com/pages/viewpage.action?pageId=405158442)                                                     | `dev_dfzxPSDS_lpf`         | #Done | -     |                                 |       |
 | [【欧莱雅2B-ECC】加工单管理优化](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2456688&projectId=1832&iterativeId=46490)                | `dev_processOrder_lpf`     | #Done | -     | 欧莱雅华南 CDC 项目支持（专项成本）-KJ24047309 |       |
 | [【国际】OMS时区转换](https://sfyun-sit.sf-express.com/console/sfcicd/work/issueDetail/story?issueId=2406462&projectId=1832&iterativeId=46490)                       | `dev_timeZone_lpf`         | #Done | -     | 国际供应链底盘建设                       |       |
