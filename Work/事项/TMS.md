@@ -174,4 +174,4 @@ export default function transformer(file, api) {
 	- 列表
 		- 更新时间
 	- 编辑/新建
-		- 
+		- 路线配置 -> 时刻模式【到达时间、chu'fa】
