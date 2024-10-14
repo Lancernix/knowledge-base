@@ -72,7 +72,7 @@ export default function transformer(file, api) {
 
 | 错误                                                                                                                                                      | 页面                                                                                                                                 | 进度          | 备注              |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------- |
-| TypeError: Cannot read properties of undefined (reading 'map')                                                                                          | /onOmsSystem/requirementOrderManage/requirementOrderDetail?pre_order_id=117258725733200003&customer_order_code=ERP 和实 202400909008 | #NotStarted | 没sourceMap，不好排查 |
+| TypeError: Cannot read properties of undefined (reading 'map')                                                                                          | /onOmsSystem/requirementOrderManage/requirementOrderDetail?pre_order_id=117258725733200003&customer_order_code=ERP 和实 202400909008 | #NotStarted | 没 sourceMap，不好排查 |
 | TypeError: t[n.label].indexOf is not a function                                                                                                         | /rule/orderAutoRule                                                                                                                | #NotStarted |                 |
 | TypeError: o.flat is not a function                                                                                                                     | /centerConsole/TemHumMonitor                                                                                                       | #NotStarted |                 |
 | TypeError: Cannot read properties of undefined (reading 'key')                                                                                          | /onTmsSystem/splitManage                                                                                                           | #NotStarted |                 |
@@ -81,10 +81,12 @@ export default function transformer(file, api) {
 | TypeError: Cannot read properties of undefined (reading 'name')                                                                                         | /centerConsole/alarmStatistics                                                                                                     | #NotStarted |                 |
 
 # 时区改造记录
-- 运单中心-运输订单管理
+
+- 运单中心 - 运输订单管理
 	- 列表页
-		- 8个日期筛选项，前后端交互都是秒级时间戳
+		- 8 个日期筛选项，前后端交互都是秒级时间戳
 		- 列表展示
 	- 详情页
-		- 
-- 
+		- 操作日志【操作时间】
+		- 订单路径【5 个时间】
+		- 异常处理【生成时间、处理时间】**是否需要处理**
