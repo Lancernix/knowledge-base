@@ -127,4 +127,5 @@ export default function transformer(file, api) {
 		- 列表展示（有字符串、也有秒级时间戳）
 	- 详情页
 		- 所有模块的时间信息，**客户个性化信息中如果有日期相关字段要处理吗**
+- 
 
