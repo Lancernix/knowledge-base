@@ -79,3 +79,12 @@ export default function transformer(file, api) {
 | TypeError: Invalid attempt to destructure non-iterable instance.<br/>In order to be iterable, non-array objects must have a [Symbol.iterator]() method. | /waybillCenter/orderManage/orderCreate                                                                                             | #NotStarted |                 |
 | TypeError: Cannot read properties of undefined (reading '59')                                                                                           | /waybillCenter/orderManage                                                                                                         | #NotStarted |                 |
 | TypeError: Cannot read properties of undefined (reading 'name')                                                                                         | /centerConsole/alarmStatistics                                                                                                     | #NotStarted |                 |
+
+# 时区改造记录
+- 运单中心-运输订单管理
+	- 列表页
+		- 8个日期筛选项，前后端交互都是秒级时间戳
+		- 列表展示
+	- 详情页
+		- 
+- 
