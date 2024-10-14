@@ -183,4 +183,7 @@ export default function transformer(file, api) {
 		- 筛选条件中的时间信息
 - 网络规划管理-站点管理
 	- 列表页
-		- 展示【2个时间】
+		- 展示【2个字段】
+	- 新建/编辑
+		- 【交接时间、送货时间】
+	
