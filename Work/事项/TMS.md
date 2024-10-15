@@ -106,8 +106,9 @@ export default function transformer(file, api) {
 			- [x] 操作日志【操作时间】统一在组件中处理的，秒级时间戳 用 `$ToUTC` 转换
 			- [ ] 温度监控【记录时间】`src/containers/OrderDetail/modules/components/TempatureMonitorTable.tsx` 转换了，但没找到数据验证
 		- 编辑
-			- [ ] 运输信息
-				- 【预计发货时间、预计到货时间】（使用秒级时间戳交互）客户个性化信息中的日期相关字段 **是否需要处理**
+			- [x] 运输信息
+				- [x] 【预计发货时间、预计到货时间】（使用秒级时间戳交互），不需要处理
+				- [x] 客户个性化信息中的日期相关字段（看代码也是使用秒级时间戳交互），不需要处理
 - TMS- 子单管理
 	- 列表页
 		- 3 个日期筛选项（前后端交互都是秒级时间戳）
