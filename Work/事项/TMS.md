@@ -107,7 +107,7 @@ export default function transformer(file, api) {
 			- [ ] 温度监控【记录时间】`src/containers/OrderDetail/modules/components/TempatureMonitorTable.tsx` 转换了，但没找到数据验证
 		- 编辑
 			- [ ] 运输信息
-				- 【预计发货时间、预计到货时间】，客户个性化信息中的日期相关字段 **是否需要处理**
+				- 【预计发货时间、预计到货时间】（使用秒级时间戳交互）客户个性化信息中的日期相关字段 **是否需要处理**
 - TMS- 子单管理
 	- 列表页
 		- 3 个日期筛选项（前后端交互都是秒级时间戳）
