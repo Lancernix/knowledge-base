@@ -127,8 +127,8 @@ export default function transformer(file, api) {
 		- [?] 航班信息，`src/containers/LineDetail/components/FlightInfo.tsx` 转换了，但没找到数据验证
 		- [ ] 路顺信息
 			- [x] 展示【2个字段】用 `$ToUTC` 转换
-			- [ ] 交付详情点击
-			- [ ] 实际到货时间
+			- [x] 交付详情点击【实际操作时间】用 `$ToUTC` 转换
+			- [ ] 实际到货时间点击
 			- [ ] 实际发货时间点击
 	- 订单操作
 		- 编辑
