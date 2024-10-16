@@ -125,11 +125,11 @@ export default function transformer(file, api) {
 		- [!] 客户个性化信息，**如果存在日期相关字段，不太好处理**
 		- [x] 路线信息【8个字段】用 `$ToUTC` 转换
 		- [?] 航班信息，`src/containers/LineDetail/components/FlightInfo.tsx` 转换了，但没找到数据验证
-		- [ ] 路顺信息
+		- [x] 路顺信息
 			- [x] 展示【2个字段】用 `$ToUTC` 转换
 			- [x] 交付详情点击【实际操作时间】用 `$ToUTC` 转换
-			- [ ] 实际到货时间点击
-			- [ ] 实际发货时间点击
+			- [x] 实际到货时间点击【2个时间】用 `$ToUTC` 转换
+			- [x] 实际发货时间点击【2个时间】用 `$ToUTC` 转换
 	- 订单操作
 		- 编辑
 			- 【预计发货时间、预计到货时间】**是否需要处理**
