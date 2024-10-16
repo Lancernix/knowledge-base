@@ -95,7 +95,7 @@ export default function transformer(file, api) {
 			- [x] 运输信息
 				- [x] 【预计发货、预计到货时间】秒级时间戳，不需要处理
 				- [x] 可视化【4 个时间】
-			- [?] 客户个性化信息 **如果存在日期相关字段，不太好处理**
+			- [!] 客户个性化信息 **如果存在日期相关字段，不太好处理**
 			- [x] 订单路径【5 个时间，都是秒级时间戳】用 `$ToUTC` 转换
 			- [/] 运输路由
 				- [x] 【操作时间】用 `$ToUTC` 转换
@@ -104,7 +104,7 @@ export default function transformer(file, api) {
 				- [x] 【生成时间、处理时间】用 `$ToUTC` 转换
 				- [ ] 新建工单的时候，有时间信息，还没处理
 			- [x] 操作日志【操作时间】统一在组件中处理的，秒级时间戳 用 `$ToUTC` 转换
-			- [/] 温度监控【记录时间】`src/containers/OrderDetail/modules/components/TempatureMonitorTable.tsx` 转换了，但没找到数据验证
+			- [?] 温度监控【记录时间】`src/containers/OrderDetail/modules/components/TempatureMonitorTable.tsx` 转换了，但没找到数据验证
 		- 编辑
 			- [x] 运输信息
 				- [x] 【预计发货时间、预计到货时间】（使用秒级时间戳交互），不需要处理
@@ -122,9 +122,9 @@ export default function transformer(file, api) {
 		- [x] 3 个日期筛选项（前后端交互都是秒级时间戳）不需要处理
 		- [x] 列表展示【6个字段】用 `$ToUTC` 转换
 	- 详情页
-		- [?] 客户个性化信息，**如果存在日期相关字段，不太好处理**
+		- [!] 客户个性化信息，**如果存在日期相关字段，不太好处理**
 		- [x] 路线信息【8个字段】用 `$ToUTC` 转换
-		- [] 航班信息
+		- [?] 航班信息，`src/containers/LineDetail/components/FlightInfo.tsx` 转换了，但没找到数据验证
 		- [ ] 路顺信息
 			- [x] 展示【2个字段】用 `$ToUTC` 转换
 			- [ ] 交付详情点击
