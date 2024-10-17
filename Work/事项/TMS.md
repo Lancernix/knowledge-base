@@ -188,6 +188,7 @@ export default function transformer(file, api) {
 - 运力管理 - 承运商管理
 	- 列表页
 		- 列表展示【2 个字段】
+		- [ ] 日志 Form组件得优化或者用其他办法
 	- 详情
 		- 有效期相关日期
 		- [x] 日志
