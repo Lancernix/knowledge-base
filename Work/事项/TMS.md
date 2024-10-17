@@ -152,7 +152,7 @@ export default function transformer(file, api) {
 	- 列表页
 		- 1 个筛选项（接口交互是字符串）
 		- [x] 列表展示（有字符串、也有秒级时间戳）用 `$ToUTC` 转换
-	- 详情页
+	- 详情页（其实就是运单详情）
 		- [ ] 异常处理
 		- [x] 日志记录
 		- [x] 路线信息
