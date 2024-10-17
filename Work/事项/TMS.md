@@ -233,4 +233,6 @@ export default function transformer(file, api) {
 	- 列表页
 		- [x] 展示【2 个字段】用 `$ToUTC` 转换
 	- 新建/编辑
-		- 【交接时间、送货时间】
+		- [!] 【交接时间、送货时间】只有时间信息，要转换吗
+	- 详情
+		- [x] 日志
