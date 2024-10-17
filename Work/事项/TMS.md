@@ -100,9 +100,9 @@ export default function transformer(file, api) {
 			- [/] 运输路由
 				- [x] 【操作时间】用 `$ToUTC` 转换
 				- [!] 【路由描述】中**存在时间信息，这个页面不好转换，如果必须转换需要后端来转**
-			- [/] 异常处理
+			- [x] 异常处理
 				- [x] 【生成时间、处理时间】用 `$ToUTC` 转换
-				- [ ] 新建工单的时候，有时间信息，还没处理
+				- [x] 新建工单【发生时间】秒级时间戳，不需要处理
 			- [x] 操作日志【操作时间】统一在组件中处理的，秒级时间戳 用 `$ToUTC` 转换
 			- [?] 温度监控【记录时间】`src/containers/OrderDetail/modules/components/TempatureMonitorTable.tsx` 转换了，但没找到数据验证
 		- 编辑
@@ -153,11 +153,10 @@ export default function transformer(file, api) {
 		- 1 个筛选项（接口交互是字符串）
 		- [x] 列表展示（有字符串、也有秒级时间戳）用 `$ToUTC` 转换
 	- 详情页（其实就是运单详情）
-		- [ ] 异常处理
+		- [x] 异常处理
 		- [x] 日志记录
 		- [x] 路线信息
-		- [ ] 
-		- 所有模块的时间信息
+		- [x] 路顺信息
 - 运力管理 - 人员管理
 	- 列表页
 		- 列表展示【2 个字段】
