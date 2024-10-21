@@ -150,7 +150,7 @@ export default function transformer(file, api) {
 		- [x] 编辑 【有日期字段】提交用秒级时间戳，不需要处理
 - TMS- 收派单管理
 	- 列表页
-		- [ ] 1 个筛选项（接口交互是字符串）Form组件得优化或者用其他办法
+		- [x] 1 个筛选项（接口交互是字符串）直接使用`momentToString`、`stringToMoment`进行转换
 		- [x] 列表展示（有字符串、也有秒级时间戳）用 `$ToUTC` 转换
 	- 详情页（其实就是运单详情）
 		- [x] 异常处理
